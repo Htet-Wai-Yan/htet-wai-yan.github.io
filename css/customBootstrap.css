@@ -10042,6 +10042,10 @@ html, body {
   color: #fff;
 }
 
+.external {
+  padding: 0 0 0 10px;
+}
+
 footer {
   background-color: #fd7e14;
 }
