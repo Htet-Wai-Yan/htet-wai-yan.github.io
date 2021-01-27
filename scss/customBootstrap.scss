@@ -11,123 +11,156 @@ html, body{
   overflow-x: hidden;
   scroll-behavior: smooth;
 }
-// add background to the section
-#landing-page{
-  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('/images/17266.jpg');
-  background-size: cover;
-  // padding: 90px 0;
+// remove default margin
+h1, h2, h3, h4, h5, h6, p{
+  margin: 0;
+  line-height: 1.5;
 }
-#landing-page h2, #projects h2{
-  color: white;
+// common style
+h1{
+  padding: 0 0 10px 0;
+  text-shadow: 0 2px 4px #000;
   font-weight: 800;
+  font-size: 50px;
   text-align: center;
-  padding: 40px 0 0 0;
   color: $orange;
+  text-transform: uppercase;
 }
-// define content area
-.wrapper{
-  max-width: 1000px;
-  margin: 0 auto;
+h2{
+  font-size: 32px;
 }
-
-// add padding to personal-info div
-#personal-info{
-  padding: 40px 10px;
+h3{
+  color: orange;
+  font-size: 30px;
+  font-style: italic;
+  font-weight: 800;
 }
-// add padding and place div in the middle
-.greeting{
-  padding: 20px;
-  color: white;
-  margin: 0 auto;
-}
-.greeting .btn{
-  background-color: $primary;
-  color: #fff;
-  border-radius: 0;
-}
-// resize the icons
-.social{
-  font-size: 1.5em;
-  padding: 20px 10px 20px 0;
-  color: $orange;
-}
-// add hover effect
-.social:hover{
-  color: white;
-  transition: 0.5s;
-}
-// hero image
-.front{
-  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)), url('/images/Htet_Profile_Photo.jpg');
-  background-size: cover;
-  position: relative;
-}
-// hero button
-.front h5{
-  position: absolute;
-  top: 80%;
-  left: 20%;
-  color: white;
-}
-// flip image affect with jQuery
-// give rounder borders to flip
-.flip, .front{
-  border-radius: 10px;
-  // box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-.back {
-  background: rgb(33, 132, 205, 0.5);
-  color: #fff;
-  padding: 30px;
-  border-radius: 10px;
-  // box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-// resume section
-// add padding to resume section
-#resume{
-  padding: 60px 0;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('/images/free-mind-map-vector.png');
-  background-size: cover;
-}
-// add padding and color to detail div
-.detail{
-  padding: 20px;
-  margin: 10px 0;
-  background-color: rgba(128, 128, 128, 0.9);
-  position: relative;
-}
-// add pin with absolute position
-.detail img{
-  position: absolute;
-  top: -20px;
-  right: 10px;
-  width: 60px;
-  height: auto;
-}
-// define font style
-.detail h3{
-  color: $orange;
-  text-shadow: 0 2px 4px #000; //horizontal, vertical, blur, color
-}
-.detail h3, h5{
-  font-weight: 700;
-}
-.year{
-  color: #c2c2c2;
+h6{
+  color: #969696;
   font-size: 16px;
 }
-.calendar{
-  margin: 0 5px 0 0;
+i{
+  margin-right: 10px;
 }
+.wrapper{
+  max-width: 1000px;
+  padding: 40px 10px;
+  margin: 0 auto;
+}
+
+// Heading Section
+// Header grid layout
+#header{
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(56, 56, 56, 0.8)), url('/images/header-bg.jpg') no-repeat center;
+  background-size: cover;
+}
+#header .grid-container{
+  display: grid;
+  grid-template-columns: 330px 1fr; // 2 columns layout with different column size
+  align-items: center;
+  gap: 20px;
+}
+.grid-items-1{
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 20px 0;
+  border-radius: 10px;
+}
+.grid-items-2{
+  color: #fff;
+}
+// profile photo
+.image-container{
+  width: 150px;
+  height: 150px;
+  margin: auto;
+}
+.image-container img{
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+// profile text
+.text-container{
+  padding: 20px 0 0 0;
+  color: #fff;
+  text-align: center;
+}
+.text-container .social{
+  padding-top: 20px;
+}
+.social a{
+  text-decoration: none;
+  color: $orange;
+  font-size: 24px;
+  // padding: 0 5px;
+}
+.social a:hover{
+  color: #fff;
+  transition: 0.5s;
+}
+.text-container .button, .about-me .button{
+  display: inline-block;
+  margin: 20px 0 0 0;
+  border: none;
+  background-color: $primary;
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+// About, Education and Experience
+.education, .about-me{
+  padding: 10px 20px;
+}
+.experience{
+  padding: 10px 20px;
+  // border: rgba(255, 255, 255, 0.2) solid 2px;
+  // border-radius: 10px;
+}
+.slider{
+  width: 360px;
+}
+// Heading section ends
+
+// Skills section
+.skills{
+  padding: 20px 10px;
+  // background-color: rgba(44, 47, 58, 0.4);
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  // color: white;
+  align-self: center;
+}
+.progress{
+  margin-bottom: 20px;
+  background-color: #cfcfcf !important;
+  border-radius: 10px !important;
+}
+.html{background-color: #F06529;}
+.css{background-color: #1E90FF;}
+.js{background-color: #c7c751;}
+.php{background-color: #6083BB;}
+
+.frameworks{
+  padding: 20px 0;
+  border-radius: 10px;
+}
+
+.frameworks-1{ 
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.progress-circle{
+  padding: 10px;
+}
+
 // Projects
 #projects{
   background-color: darkgrey;
-  padding: 20px 0;
-}
-#projects h2{
-  padding: 0 0 20px 0;
-  text-shadow: 0 2px 4px #000; //horizontal, vertical, blur, color
 }
 // add projects
 .p-card{
@@ -137,7 +170,7 @@ html, body{
 // Project screenshot
 .p-card img{
   width: 100%;
-  height: 100%;
+  height: auto;
   object-fit: contain; //fit inside div
 }
 // remove underline and align
@@ -159,6 +192,23 @@ footer{
 .copy-right p{
   padding: 10px;
   text-align: center;
-  margin: auto 0;
+  margin: auto;
+}
+
+// for phone screen size
+@media screen and (max-width: 425px){
+  #header .grid-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); // 2 columns layout
+  }
+  .skill-set{
+    display: block;
+  }
+}
+@media screen and (max-width: 375px){
+  .slider{
+    width: 260px;
+  }
+  
 }
 
