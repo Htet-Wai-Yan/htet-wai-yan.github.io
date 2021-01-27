@@ -57,13 +57,5 @@ $(document).ready(function(){
         textFormat: 'percent',
       });
     })
-
-    jQuery(function($) {
-      $('.php').circleProgress({
-        max: 100,
-        value: 10,
-        textFormat: 'percent',
-      });
-    })
   })
 });
