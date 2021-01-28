@@ -10053,6 +10053,10 @@ i {
   background-color: #6083BB;
 }
 
+.git {
+  background-color: #EB4D28;
+}
+
 .frameworks {
   padding: 20px 0;
   border-radius: 10px;
@@ -10060,6 +10064,7 @@ i {
 
 .frameworks-1 {
   display: flex;
+  padding: 10px 0;
   justify-content: center;
   text-align: center;
   font-size: 20px;
