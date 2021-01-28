@@ -10070,6 +10070,26 @@ i {
   padding: 10px;
 }
 
+.bootstrap .circle-progress-value {
+  stroke: #8411FB;
+}
+
+.jQuery .circle-progress-value {
+  stroke: #1563A0;
+}
+
+.react .circle-progress-value {
+  stroke: #48CEF7;
+}
+
+.nodeJs .circle-progress-value {
+  stroke: #6BA15C;
+}
+
+.flutter .circle-progress-value {
+  stroke: #45BFF3;
+}
+
 #projects {
   background-color: darkgrey;
 }

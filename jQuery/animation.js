@@ -37,7 +37,7 @@ $(document).ready(function(){
     jQuery(function($) {
       $('.react').circleProgress({
         max: 100,
-        value: 0,
+        value: 10,
         textFormat: 'percent',
       });
     })
@@ -45,7 +45,7 @@ $(document).ready(function(){
     jQuery(function($) {
       $('.nodeJs').circleProgress({
         max: 100,
-        value: 0,
+        value: 5,
         textFormat: 'percent',
       });
     })

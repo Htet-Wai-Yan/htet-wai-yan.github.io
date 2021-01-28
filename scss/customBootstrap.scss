@@ -131,6 +131,7 @@ i{
   // color: white;
   align-self: center;
 }
+// customize bootstrap default bar style
 .progress{
   margin-bottom: 20px;
   background-color: #cfcfcf !important;
@@ -156,6 +157,22 @@ i{
 
 .progress-circle{
   padding: 10px;
+}
+// customize jQuery plugin CSS
+.bootstrap .circle-progress-value {
+	stroke: #8411FB;
+}
+.jQuery .circle-progress-value {
+	stroke: #1563A0;
+}
+.react .circle-progress-value {
+	stroke: #48CEF7;
+}
+.nodeJs .circle-progress-value {
+	stroke: #6BA15C;
+}
+.flutter .circle-progress-value {
+	stroke: #45BFF3;
 }
 
 // Projects
@@ -194,6 +211,7 @@ footer{
   text-align: center;
   margin: auto;
 }
+
 
 // for phone screen size
 @media screen and (max-width: 425px){
