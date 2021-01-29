@@ -17,6 +17,9 @@
     <!-- Add the slick-theme.css if you want default styling -->
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
 
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
   </head>
   <body>
     <!-- Header -->
@@ -24,7 +27,7 @@
       <div class="wrapper">
         <h1>The Portfolio</h1>
         <div class="grid-container">
-          <div class="grid-items grid-items-1">
+          <div class="grid-items grid-items-1" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="2500">
             <div class="image-container">
               <img src="/images/Htet_Profile_Photo.jpg" alt="">
             </div>
@@ -38,14 +41,14 @@
                 <a href="https://www.linkedin.com/in/htet-wai-yan-5b292413a/" target="_blank"><i class="fa fa-linkedin"></i></a>
                 <a href="https://github.com/Htet-Wai-Yan" target="_blank"><i class="fa fa-github"></i></a>
               </div>
-              <a href="#" class="button">Download CV</a>
+              <a href="https://drive.google.com/file/d/18dXEUBYTsTl7r8aRhDhnnsQ6TEtf_2_Y/view?usp=sharing" download target="_blank" class="button">Download CV</a>
             </div>
           </div>
-          <div class="grid-items grid-items-2">
+          <div class="grid-items grid-items-2" data-aos="fade-left" data-aos-easing="ease-in-out" data-aos-duration="2000">
             <div class="about-me">
               <h3>A little Bits About Me</h3>
               <p>
-                I always wanted to create something of my own which is useful to my circle and the community as IT professional. Then, the web development got me there. I can create interactive webpages, dashboards for the businesses and the list goes on. So, here I am, started pursuing the wonderful career of web development as a <em>Front-End Developer</em>. Check out my lastest projects for fun.
+                I always wanted to create something of my own which is useful to my circle and the community as IT professional. Then, the web development got me there. I can create interactive web pages, dashboards for the businesses and the list goes on. So, here I am, started pursuing the wonderful career of web development as a <em>Front-End Developer</em>. Check out my latest projects for fun.
               </p>
               <a href="#projects" class="button"><i class="fas fa-project-diagram"></i>Projects</a>
             </div>
@@ -94,7 +97,7 @@
         <h1>Technical Skills</h1>
         <div class="row">
           <div class="col-sm-6">
-            <div class="skills">
+            <div class="skills" data-aos="fade-right" data-aos-easing="ease-in-out" data-aos-duration="2000">
               <p>CSS3</p>
               <div class="progress">
                 <div class="css progress-bar progress-bar-striped active" role="progressbar"
@@ -132,7 +135,7 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-6 frameworks">
+          <div class="col-sm-6 frameworks" data-aos="fade-left" data-aos-easing="ease-in-out" data-aos-duration="2000">
             <div class="frameworks-1">
               <div>
                 <div class="progress-circle bootstrap"></div>
@@ -230,8 +233,16 @@
     <!-- circle-progress jQuery plugin -->
     <script src="/circle-progress-master/dist/jquery.circle-progress.js"></script>
 
+    <!-- AOS js -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
     <!-- custom js -->
     <script src="/jQuery/animation.js"></script>
+
+    <!-- initialize AOS -->
+    <script>
+      AOS.init();
+    </script>
 
   </body>
 </html>
