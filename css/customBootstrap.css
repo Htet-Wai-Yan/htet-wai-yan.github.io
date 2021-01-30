@@ -9961,6 +9961,7 @@ i {
 .grid-items-1 {
   background-color: rgba(255, 255, 255, 0.15);
   padding: 20px 0;
+  border-bottom: orangered solid 4px;
   border-radius: 10px;
 }
 
@@ -10009,6 +10010,11 @@ i {
   color: #fff;
   padding: 10px 20px;
   text-decoration: none;
+}
+
+.button:hover {
+  background-color: orangered;
+  transition: 0.5s;
 }
 
 .education, .about-me {
@@ -10116,6 +10122,11 @@ i {
   text-align: center;
   padding: 15px 0;
   color: #fff;
+}
+
+.p-card a:hover {
+  background-color: orangered;
+  transition: 0.5s;
 }
 
 .external {
