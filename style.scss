@@ -1,0 +1,40 @@
+
+$primary: #c75566;
+$secondary: #ffebea;
+$light: #ececec;
+
+@import "../mdb-ui-kit/src/scss/mdb.free.scss";
+
+h1 {
+  color: $primary !important;
+}
+
+.btn-primary {
+  box-shadow: none !important;
+}
+
+#skill-section{
+  background: url(/assets/images/blob-scene-haikei.png) no-repeat center;
+  background-size: cover;
+}
+
+.bg-caption {
+  background-color: #ff95a5d2;
+  border-radius: 5px;
+}
+
+.carousel-image {
+  width: 100%;
+  height: auto;
+}
+
+.navbar-brand img {
+  width: 40px;
+  height: 40px;
+}
+
+.btn-floating {
+  position: fixed;
+  bottom: 20px;
+  right: 15px;
+}

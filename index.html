@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Material Design for Bootstrap</title>
+    <!-- MDB icon -->
+    <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"
+    />
+
+    <link rel="stylesheet" href="/css/style.min.css">
+  </head>
+  <body>
+
+    <!-- Navigation -->
+    <header class="sticky-top">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+          <a class="navbar-brand" href="https://htet-wai-yan.github.io">
+            <img
+              src="img/profile-pic.png"
+              class="rounded-circle"
+              height="25"
+            />
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-mdb-toggle="collapse"
+            data-mdb-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto text-center">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#home" onclick=scrollToTop()>Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#aboutMe">About Me</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#project">Projects</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#skill">Skills</a>
+              </li>
+              <!-- <li class="nav-item">
+                <a class="nav-link" href="#">Services</a>
+              </li> -->
+              <li class="nav-item">
+                <a type="button" class="btn btn-secondary btn-rounded" href="https://drive.google.com/file/d/1RbI3_KgqFA12Ukct1tx_DQyJk7_b_c-O/view?usp=sharing" target="_blank"><i class="fas fa-download"></i> CV</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <!-- Carousel -->
+    <section class="py-3">
+      <div id="carouselExampleIndicators" class="carousel slide py-2" data-mdb-ride="carousel">
+
+        <div class="carousel-indicators">
+          <button
+            type="button"
+            data-mdb-target="#carouselExampleIndicators"
+            data-mdb-slide-to="0"
+            class="bg-primary active"
+            aria-current="true"
+            aria-label="Slide 1"
+          ></button>
+          <button
+            type="button"
+            data-mdb-target="#carouselExampleIndicators"
+            data-mdb-slide-to="1"
+            class="bg-primary"
+            aria-label="Slide 2"
+          ></button>
+          <button
+            type="button"
+            data-mdb-target="#carouselExampleIndicators"
+            data-mdb-slide-to="2"
+            class="bg-primary"
+            aria-label="Slide 3"
+          ></button>
+        </div>
+
+        <div class="carousel-inner">
+          <!-- to be populated dynamically with JS -->
+        </div>
+
+        <button class="carousel-control-prev d-none d-lg-block" type="button" data-mdb-target="#carouselExampleIndicators" data-mdb-slide="prev">
+          <span class="carousel-control-prev-icon text-primary" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+
+        <button class="carousel-control-next d-none d-lg-block" type="button" data-mdb-target="#carouselExampleIndicators" data-mdb-slide="next">
+          <span class="carousel-control-next-icon text-primary" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+
+      </div>
+    </section>
+
+    <!-- About me -->
+    <section class="py-3" id="aboutMe">
+      <article class="container">
+        <h1 class="text-center py-3">About Me</h1>
+        <div class="row align-items-center g-4">
+          <div class="col-sm-6">
+            <div class="profile-text px-lg-5">
+    
+              <p class="mb-5 py-0 ps-3 border-start border-3 border-primary">I always want to create something and feel happy when people are using it. Therefore, I started my coding career by learning frontend fundamentals via online courses and did some projects for you to check out.</p>
+  
+              <a class="btn btn-primary btn-lg" href="#" role="button">see projects</a>
+              <a class="btn btn-outline-primary btn-lg" href="#" role="button">download CV</a>
+            </div>
+          </div>
+          <div 
+            class="col-sm-6"
+            style="background: url(assets/images/blob-haikei.png) center no-repeat; background-size: cover;"
+          >
+            <div class="profile-image" >
+              <img src="img/profile_photo_no_bg.png" alt="Profile image" class="img-fluid">
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- Projects -->
+    <section class="py-5" id="project">
+      <article class="container text-center">
+        <h1 class="py-3">Projects</h1>
+  
+        <!-- Tabs navs -->
+        <ul class="nav nav-tabs mb-3 justify-content-center" id="ex1" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a
+              class="nav-link"
+              id="html-tab"
+              data-mdb-toggle="tab"
+              href="#html"
+              role="tab"
+              aria-controls="html"
+              aria-selected="true"
+              >HTML/CSS</a
+            >
+          </li>
+          <li class="nav-item" role="presentation">
+            <a
+              class="nav-link"
+              id="js-tab"
+              data-mdb-toggle="tab"
+              href="#javascript"
+              role="tab"
+              aria-controls="javascript"
+              aria-selected="false"
+              >JavaScript</a
+            >
+          </li>
+          <li class="nav-item" role="presentation">
+            <a
+              class="nav-link active"
+              id="bootstrap-tab"
+              data-mdb-toggle="tab"
+              href="#bootstrap"
+              role="tab"
+              aria-controls="bootstrap"
+              aria-selected="false"
+              >Bootstrap</a
+            >
+          </li>
+          <li class="nav-item" role="presentation">
+            <a
+              class="nav-link"
+              id="portfolio-tab"
+              data-mdb-toggle="tab"
+              href="#portfolio"
+              role="tab"
+              aria-controls="portfolio"
+              aria-selected="false"
+              >Portfolio</a
+            >
+          </li>
+        </ul>
+        <!-- Tabs navs -->
+  
+        <!-- Tabs content -->
+        <div class="tab-content" id="ex1-content">
+          <!-- HTML/CSS -->
+          <div
+            class="tab-pane fade"
+            id="html"
+            role="tabpanel"
+            aria-labelledby="html-tab"
+          >
+            <div class="row" id="html_row">
+              <!-- to be populated dynamically with JS -->
+            </div>
+          </div>
+  
+          <!-- Javascript -->
+          <div 
+            class="tab-pane fade"
+            id="javascript" 
+            role="tabpanel" 
+            aria-labelledby="js-tab"
+          >
+            <div class="row" id="js_row">
+              <!-- to be populated dynamically with JS -->
+            </div>
+          </div>
+  
+          <!-- Bootstrap -->
+          <div 
+            class="tab-pane fade show active" 
+            id="bootstrap" 
+            role="tabpanel" 
+            aria-labelledby="bootstrap-tab"
+          >
+            <div class="row" id="bs_row">
+              <!-- to be populated dynamically with JS -->
+            </div>
+          </div>
+  
+          <!-- Portfolio -->
+          <div 
+            class="tab-pane fade" 
+            id="portfolio" 
+            role="tabpanel" 
+            aria-labelledby="portfolio-tab"
+          >
+            <div class="row" id="portfolio_row">
+              <!-- to be populated dynamically with JS -->
+            </div>
+          </div>
+        </div>
+        <!-- Tabs content -->
+  
+        <a class="btn btn-primary btn-lg fs-5 mt-5" href="https://github.com/Htet-Wai-Yan?tab=repositories" target="_blank" role="button"><i class="fab fa-github me-2"></i>See all repo</a>
+      </article>
+    </section>
+
+    <!-- Skills -->
+    <section class="py-5" id="skill">
+      <div class="container">
+        <h1 class="text-center">Skills</h1>
+        <div class="container">
+          <img src="img/skills.png" alt="Skills image" class="img-fluid">
+        </div>
+        <blockquote class="text-center fs-2" cite="https://www.brainyquote.com/quotes/scott_adams_753626?src=t_skill"><q>Every skill you acquire doubles your odds of success.</q> - Scott Adams</blockquote>
+      </div>
+    </section>
+
+    <!-- <section>
+      <h1 class="text-center">Services</h1>
+      <div class="container-fluid p-0">
+        <div class="row g-3">
+          <div class="col-3">This</div>
+          <div class="col-3">This</div>
+          <div class="col-3">This</div>
+          <div class="col-3">This</div>
+        </div>
+      </div>
+    </section> -->
+
+    <footer class="page-footer font-small blue pt-4">
+      <div class="footer-copyright text-center py-3">
+        <a href="https://github.com/Htet-Wai-Yan" target="_blank">Htet</a> Portfolio @ 2022
+      </div>
+    </footer>
+
+    <!-- Floating action button -->
+    <a type="button" class="btn btn-primary btn-floating btn-lg" href="#home" onclick=scrollToTop()>
+      <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- Custom scripts -->
+    <script type="module" src="/js/App.js"></script>
+    <script src="/js/scrollTop.js"></script>
+
+    <!-- MDB JS CDN link -->
+    <!-- MDB -->
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js"
+    ></script>
+    
+  </body>
+</html>
