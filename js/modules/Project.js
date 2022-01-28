@@ -84,8 +84,8 @@ class Project {
       imgSrc: "img/portfolio-mark-I.png",
       title: "Portfolio Mark I",
       description: "Some short description about project",
-      demoLink: "https://htet-wai-yan.github.io/",
-      repoLink: "https://github.com/Htet-Wai-Yan/htet-wai-yan.github.io",
+      demoLink: "https://htet-wai-yan.github.io/portfolio-mark-I",
+      repoLink: "https://github.com/Htet-Wai-Yan/portfolio-mark-I",
       tag: "Portfolio"
     },
   ]
