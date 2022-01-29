@@ -83,7 +83,7 @@ class Project {
       type: "portfolio",
       imgSrc: "img/portfolio-mark-I.png",
       title: "Portfolio Mark I",
-      description: "Some short description about project",
+      description: "This was created as an experiment to many web development tools such as bootstrap 4, jQuery plugins and github.",
       demoLink: "https://htet-wai-yan.github.io/portfolio-mark-I/",
       repoLink: "https://github.com/Htet-Wai-Yan/portfolio-mark-I",
       tag: "Portfolio"

@@ -3,7 +3,7 @@ $primary: #c75566;
 $secondary: #ffebea;
 $light: #ececec;
 
-@import "../mdb-ui-kit/src/scss/mdb.free.scss";
+@import "node_modules/mdb-ui-kit/src/scss/mdb.free.scss";
 
 h1 {
   color: $primary !important;
@@ -11,11 +11,6 @@ h1 {
 
 .btn-primary {
   box-shadow: none !important;
-}
-
-#skill-section{
-  background: url(/assets/images/blob-scene-haikei.png) no-repeat center;
-  background-size: cover;
 }
 
 .bg-caption {
