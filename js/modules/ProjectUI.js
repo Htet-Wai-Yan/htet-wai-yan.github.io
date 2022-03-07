@@ -1,6 +1,6 @@
 import {Project} from "./Project.js"
 
-class ProjectUI {
+export class ProjectUI {
 
   static createProjectUI(project) {
 
@@ -116,12 +116,15 @@ class ProjectUI {
         <div class="carousel-item ${project.isActive == true ? "active" : ""}">
           <div class="container">
             <div class="row g-3 justify-content-center align-items-center" id="projectOne">
-              <div class="col-md-8">
+              <div class="col-lg-8 col-md-6">
                 <img src="${project.imgSrc}" alt="Pizza shop design" class="img-fluid">
               </div>
-              <div class="col-md-4 d-none d-md-block">
+              <div class="col-lg-4 col-md-6 d-none d-md-block">
                 <p class="">${project.description}</p>
-                <a type="button" class="btn btn-primary btn-lg" href="#project"><i class="fas fa-cogs"></i> Projects</a>
+                <p>
+                  All the frontend fundamentals such as HTML/CSS, Frameworks and most importantly Javascript are applied in these projects. These projects will prove that the developer has necessary skills for the job.
+                </p>
+                <a type="button" class="btn btn-primary" href="${project.demoLink}"><i class="fas fa-cogs"></i> See Demo</a>
               </div>
             </div>
           </div>
@@ -143,5 +146,3 @@ class ProjectUI {
 
   }
 }
-
-export {ProjectUI}

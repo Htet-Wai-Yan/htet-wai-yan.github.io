@@ -1,4 +1,4 @@
-class Project {
+export class Project {
   
   static projectList = [
     // HTML projects
@@ -90,5 +90,3 @@ class Project {
     },
   ]
 }
-
-export {Project}
