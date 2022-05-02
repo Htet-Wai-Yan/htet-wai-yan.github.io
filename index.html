@@ -63,7 +63,7 @@
                 <a class="nav-link" href="#">Services</a>
               </li> -->
               <li class="nav-item">
-                <a type="button" class="btn btn-secondary btn-rounded" href="https://drive.google.com/file/d/1RbI3_KgqFA12Ukct1tx_DQyJk7_b_c-O/view?usp=sharing" target="_blank"><i class="fas fa-download"></i> CV</a>
+                <a type="button" class="btn btn-secondary btn-rounded" href="https://drive.google.com/file/d/1XsTlVJLlfjuWfs5S2WN0ZumQk-6_uSH2/view?usp=sharing" target="_blank"><i class="fas fa-download"></i> CV</a>
               </li>
             </ul>
           </div>
@@ -72,7 +72,7 @@
     </header>
     <!-- Carousel -->
     <section>
-      <div id="carouselIndicator" class="carousel slide py-lg-3 py-md-5" data-mdb-ride="carousel">
+      <div id="carouselIndicator" class="carousel slide" data-mdb-ride="carousel">
 
         <div class="carousel-indicators my-0">
           <button
@@ -96,6 +96,13 @@
             data-mdb-slide-to="2"
             class="bg-primary"
             aria-label="Slide 3"
+          ></button>
+          <button
+            type="button"
+            data-mdb-target="#carouselIndicator"
+            data-mdb-slide-to="3"
+            class="bg-primary"
+            aria-label="Slide 4"
           ></button>
         </div>
 
@@ -127,7 +134,7 @@
               <p class="mb-5 py-0 ps-3 border-start border-3 border-primary">I always want to create something and feel happy when people are using it. Therefore, I started my coding career by learning frontend fundamentals via online courses and did some projects for you to check out.</p>
   
               <a class="btn btn-primary btn-lg" href="#project" role="button">see projects</a>
-              <a class="btn btn-outline-primary btn-lg" href="https://drive.google.com/file/d/1RbI3_KgqFA12Ukct1tx_DQyJk7_b_c-O/view?usp=sharing" target="_blank" role="button">download CV</a>
+              <a class="btn btn-outline-primary btn-lg" href="https://drive.google.com/file/d/1XsTlVJLlfjuWfs5S2WN0ZumQk-6_uSH2/view?usp=sharing" target="_blank" role="button">download CV</a>
             </div>
           </div>
           <div 
@@ -286,13 +293,12 @@
     </footer>
 
     <!-- Floating action button -->
-    <a type="button" class="btn btn-primary btn-floating btn-lg" href="#home" onclick=scrollToTop()>
+    <a type="button" class="btn btn-primary btn-floating btn-lg" href="#home" onclick="window.scrollTo(0, 0)">
       <i class="fas fa-arrow-up"></i>
     </a>
 
     <!-- Custom scripts -->
     <script type="module" src="/js/App.js"></script>
-    <script src="/js/scrollTop.js"></script>
 
     <!-- MDB JS CDN link -->
     <!-- MDB -->

@@ -113,21 +113,20 @@ export class ProjectUI {
 
     if(project.type == "javascript") {
       container.innerHTML += `
-        <div class="carousel-item ${project.isActive == true ? "active" : ""}">
+        <div class="carousel-item mb-lg-4 mb-md-5 ${project.isActive == true ? "active" : ""}">
           <div class="container">
             <div class="row g-3 justify-content-center align-items-center" id="projectOne">
-              <div class="col-lg-8 col-md-6">
+              <div class="col-lg-8 col">
                 <img src="${project.imgSrc}" alt="Pizza shop design" class="img-fluid">
               </div>
-              <div class="col-lg-4 col-md-6 d-none d-md-block">
-                <p class="">${project.description}</p>
-                <p>
-                  All the frontend fundamentals such as HTML/CSS, Frameworks and most importantly Javascript are applied in these projects. These projects will prove that the developer has necessary skills for the job.
-                </p>
+              <div class="col-lg-4 col d-none d-md-block">
+                <h2 class="text-primary">${project.title}</h2>
+                <h5 class="my-md-4 lh-base">${project.description}</h5>
                 <a type="button" class="btn btn-primary" href="${project.demoLink}"><i class="fas fa-cogs"></i> See Demo</a>
               </div>
             </div>
           </div>
+          <h2 class="d-sm-none text-primary text-center pb-4">${project.title}</h2>
         </div>
       `
     }

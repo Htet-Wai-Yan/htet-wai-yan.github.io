@@ -44,6 +44,16 @@ export class Project {
       repoLink: "https://github.com/Htet-Wai-Yan/Expense-Tracker",
       tag: "Javascript"
     },
+    {
+      isActive: false,
+      type: "javascript",
+      imgSrc: "img/splitter-large-screen.png",
+      title: "Tip Calculator",
+      description: "This is the Frontend Mentor challenge built using tailwind framework and vanilla javaScript.",
+      demoLink: "https://htet-wai-yan.github.io/tip-calculator/",
+      repoLink: "https://github.com/Htet-Wai-Yan/tip-calculator",
+      tag: "Javascript"
+    },
 
     // Bootstrap projects
     {
