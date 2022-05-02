@@ -122,7 +122,7 @@ export class ProjectUI {
               <div class="col-lg-4 col d-none d-md-block">
                 <h2 class="text-primary">${project.title}</h2>
                 <h5 class="my-md-4 lh-base">${project.description}</h5>
-                <a type="button" class="btn btn-primary" href="${project.demoLink}"><i class="fas fa-cogs"></i> See Demo</a>
+                <a type="button" class="btn btn-primary" href="${project.demoLink}" target="_blank"><i class="fas fa-cogs"></i> See Demo</a>
               </div>
             </div>
           </div>
