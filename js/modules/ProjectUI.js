@@ -1,4 +1,4 @@
-import {Project} from "./Project.js"
+// import {Project} from "./Project.js"
 
 export class ProjectUI {
 
@@ -133,14 +133,21 @@ export class ProjectUI {
 
   }
 
-  static displayUI() {
+  static async getData() {
+    // extract the data from json file
+    const response = await fetch("../../data/projects.json")
+    const data = await response.json()
 
-    let projectList = Project.projectList
+    return data
+  }
+
+  static async displayUI() {
+
+    const projectList = await this.getData()
 
     projectList.forEach(project => {
-      
-      ProjectUI.createProjectUI(project)
-      ProjectUI.createCarouselUI(project)
+      this.createProjectUI(project)
+      this.createCarouselUI(project)
     });
 
   }
