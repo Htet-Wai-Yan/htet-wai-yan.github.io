@@ -1,6 +1,6 @@
 # Portfolio Mark II
 
-The previous portfolio was built with bootstrap and added other jQuery frameworks. The UI was written from scratch and I felt a lot less professional although it is well structured. Therefore, I created the __Protfolio Mark II__ hoping that it will provide clean and modern look to the visitors. 
+The previous portfolio was built with bootstrap and used other jQuery library. The UI was written from scratch and I felt a lot less professional although it was well structured. Therefore, I created the __Protfolio Mark II__ hoping that it will provide clean and modern look to the visitors. 
 
 However, This is still the __beta__ version. Therefore, more relevant functionalities and transitions will be added in the future to provide pleasing user experience.
 
