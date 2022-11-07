@@ -14,7 +14,7 @@
     "type": "javascript",
     "imgSrc": "img/holiday-count-down.png",
     "title": "Holiday Count Down",
-    "description": "This is the basic javascript exercise focusing on looping through an array while minipulating DOM and date object.",
+    "description": "Basic javascript exercise focusing on looping through an array while minipulating DOM and date object.",
     "demoLink": "https://htet-wai-yan.github.io/Holiday-Count-Down/",
     "repoLink": "https://github.com/Htet-Wai-Yan/Holiday-Count-Down",
     "tag": "Javascript"
