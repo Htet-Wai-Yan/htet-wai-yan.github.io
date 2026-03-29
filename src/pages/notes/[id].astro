@@ -1,4 +1,5 @@
 ---
+import { ArrowBigLeft } from "@lucide/astro";
 import RootLayout from "../RootLayout.astro";
 import { render } from "astro:content";
 import { getCollection } from "astro:content";
@@ -17,7 +18,10 @@ const { Content } = await render(note);
 ---
 
 <RootLayout>
-  <div class="prose py-8">
+  <div>
+    <a href="/" class="btn btn-sm"><ArrowBigLeft class="h-4 w-4" /> Home</a>
+  </div>
+  <div class="prose py-6">
     <Content />
   </div>
 </RootLayout>
