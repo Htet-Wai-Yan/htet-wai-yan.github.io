@@ -1,0 +1,23 @@
+---
+import RootLayout from "../RootLayout.astro";
+import { render } from "astro:content";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const notes = await getCollection("notes");
+
+  return notes.map((note) => ({
+    params: { id: note.id },
+    props: { note },
+  }));
+}
+
+const { note } = Astro.props;
+const { Content } = await render(note);
+---
+
+<RootLayout>
+  <div class="prose py-8">
+    <Content />
+  </div>
+</RootLayout>

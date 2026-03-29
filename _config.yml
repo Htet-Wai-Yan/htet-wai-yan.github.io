@@ -1,5 +1,0 @@
-title: My Markdown Library
-description: A collection of my markdown notes
-theme: jekyll-theme-minimal
-plugins:
-  - jekyll-optional-front-matter

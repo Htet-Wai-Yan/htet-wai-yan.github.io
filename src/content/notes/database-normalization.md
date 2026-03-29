@@ -1,3 +1,8 @@
+---
+title: "Database Normalization"
+updated: "2026-03-24"
+---
+
 # Database Normalization
 
 This guide follows a relatable example: an **online store** that sells products to customers. We'll see how to fix data step by step.
