@@ -8,9 +8,11 @@ coAuthor: "opencode"
 
 # Supabase Tables
 
+This guide covers table creation, relationship types, and constraints for Supabase projects using PostgreSQL.
+
 ---
 
-## Creating Tables
+## 1. Creating Tables
 
 ```sql
 -- Basic table
@@ -24,7 +26,7 @@ CREATE TABLE users (
 
 ---
 
-## Relationships
+## 2. Relationships
 
 ### One-to-Many (has many)
 
@@ -38,8 +40,6 @@ CREATE TABLE posts (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 ```
-
----
 
 ### Many-to-Many (belongs to many)
 
@@ -57,8 +57,6 @@ CREATE TABLE post_tags (
 );
 ```
 
----
-
 ### One-to-One
 
 ```sql
@@ -73,7 +71,7 @@ CREATE TABLE profiles (
 
 ---
 
-## Constraints
+## 3. Constraints
 
 ### Primary Key
 
@@ -84,8 +82,6 @@ id UUID PRIMARY KEY
 -- Composite primary key
 PRIMARY KEY (user_id, role_id)
 ```
-
----
 
 ### Foreign Key
 
@@ -99,8 +95,6 @@ user_id UUID REFERENCES users(id) ON DELETE SET NULL
 user_id UUID REFERENCES users(id) ON UPDATE CASCADE
 ```
 
----
-
 ### Unique
 
 ```sql
@@ -110,8 +104,6 @@ email TEXT UNIQUE
 -- Table level
 UNIQUE (email, organization_id)
 ```
-
----
 
 ### Check
 
@@ -123,16 +115,12 @@ price NUMERIC CHECK (price > 0)
 status TEXT CHECK (status IN ('active', 'inactive', 'pending'))
 ```
 
----
-
 ### Not Null
 
 ```sql
 name TEXT NOT NULL
 email TEXT NOT NULL
 ```
-
----
 
 ### Default
 
@@ -141,8 +129,6 @@ created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 is_active BOOLEAN DEFAULT true
 priority INTEGER DEFAULT 1
 ```
-
----
 
 ### Additional Examples
 
@@ -165,7 +151,7 @@ ALTER TABLE posts ADD COLUMN status post_status DEFAULT 'draft';
 
 ---
 
-## Quick Reference
+## 4. Quick Reference
 
 | Relationship | Implementation |
 |--------------|----------------|
