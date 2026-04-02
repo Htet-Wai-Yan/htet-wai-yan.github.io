@@ -5,7 +5,13 @@
     "title": {
       "type": "string"
     },
+    "description": {
+      "type": "string"
+    },
     "updated": {
+      "type": "string"
+    },
+    "coAuthor": {
       "type": "string"
     },
     "$schema": {
@@ -13,6 +19,7 @@
     }
   },
   "required": [
-    "title"
+    "title",
+    "description"
   ]
 }

@@ -1,6 +1,8 @@
 ---
 title: "PostgreSQL"
+description: "Complete guide to PostgreSQL basics, queries, joins, and operations"
 updated: "2026-03-24"
+coAuthor: "opencode"
 ---
 
 # PostgreSQL
@@ -10,12 +12,14 @@ updated: "2026-03-24"
 ## 1. Basic Commands
 
 ### Connect to database
+
 ```bash
 psql -U username -d database_name
 psql -U postgres  # default superuser
 ```
 
 ### Common commands inside psql
+
 ```sql
 \l          -- list all databases
 \c dbname   -- connect to database
@@ -86,23 +90,25 @@ ALTER TABLE users RENAME TO customers;
 ## 4. CRUD Operations
 
 ### Create (Insert)
+
 ```sql
 -- Insert single row
-INSERT INTO users (name, email, age) 
+INSERT INTO users (name, email, age)
 VALUES ('Alice', 'alice@email.com', 25);
 
 -- Insert multiple rows
-INSERT INTO users (name, email, age) VALUES 
+INSERT INTO users (name, email, age) VALUES
     ('Bob', 'bob@email.com', 30),
     ('Charlie', 'charlie@email.com', 22);
 
 -- Insert and return
-INSERT INTO users (name, email) 
+INSERT INTO users (name, email)
 VALUES ('Dave', 'dave@email.com')
 RETURNING id, name;
 ```
 
 ### Read (Select)
+
 ```sql
 -- Select all
 SELECT * FROM users;
@@ -139,6 +145,7 @@ SELECT * FROM users WHERE created_at BETWEEN '2024-01-01' AND '2024-12-31';
 ```
 
 ### Update
+
 ```sql
 -- Update single row
 UPDATE users SET age = 26 WHERE name = 'Alice';
@@ -151,6 +158,7 @@ UPDATE users SET age = age + 1 WHERE id = 1 RETURNING id, age;
 ```
 
 ### Delete
+
 ```sql
 -- Delete row
 DELETE FROM users WHERE id = 5;
@@ -173,16 +181,16 @@ CREATE TABLE examples (
 
     -- Unique
     email VARCHAR(255) UNIQUE,
-    
+
     -- Not null
     name VARCHAR(100) NOT NULL,
-    
+
     -- Check
     age INT CHECK (age >= 0 AND age <= 150),
-    
+
     -- Default value
     status VARCHAR(20) DEFAULT 'active',
-    
+
     -- Foreign key
     country_id INT REFERENCES countries(id),
 
@@ -200,6 +208,7 @@ ALTER TABLE orders ADD CONSTRAINT positive_price CHECK (price > 0);
 ## 6. Joins
 
 ### Sample tables for examples
+
 ```sql
 -- users table
 -- id | name
@@ -214,7 +223,9 @@ ALTER TABLE orders ADD CONSTRAINT positive_price CHECK (price > 0);
 ```
 
 ### INNER JOIN
+
 Returns rows with matches in both tables.
+
 ```sql
 SELECT users.name, orders.amount
 FROM users
@@ -223,7 +234,9 @@ INNER JOIN orders ON users.id = orders.user_id;
 ```
 
 ### LEFT JOIN
+
 Returns all rows from left table, matched rows from right.
+
 ```sql
 SELECT users.name, orders.amount
 FROM users
@@ -232,7 +245,9 @@ LEFT JOIN orders ON users.id = orders.user_id;
 ```
 
 ### RIGHT JOIN
+
 Returns all rows from right table.
+
 ```sql
 SELECT users.name, orders.amount
 FROM users
@@ -240,6 +255,7 @@ RIGHT JOIN orders ON users.id = orders.user_id;
 ```
 
 ### Multiple joins
+
 ```sql
 SELECT u.name, o.amount, p.name as product
 FROM users u
@@ -274,7 +290,7 @@ GROUP BY country
 HAVING COUNT(*) > 10;
 
 -- Multiple aggregations
-SELECT 
+SELECT
     country,
     COUNT(*) as total_users,
     AVG(age) as avg_age,
@@ -298,7 +314,7 @@ FROM (SELECT country, AVG(age) as avg_age FROM users GROUP BY country) as stats
 WHERE avg_age > 25;
 
 -- Subquery in SELECT
-SELECT name, 
+SELECT name,
     (SELECT COUNT(*) FROM orders WHERE orders.user_id = users.id) as order_count
 FROM users;
 
@@ -312,6 +328,7 @@ WHERE category_id IN (SELECT id FROM categories WHERE name = 'Electronics');
 ## 9. Common Functions
 
 ### String functions
+
 ```sql
 SELECT UPPER('hello');        -- HELLO
 SELECT LOWER('HELLO');        -- hello
@@ -323,6 +340,7 @@ SELECT REPLACE('Hello', 'l', 'r'); -- Herro
 ```
 
 ### Date functions
+
 ```sql
 SELECT CURRENT_DATE;      -- 2024-01-15
 SELECT CURRENT_TIMESTAMP; -- 2024-01-15 10:30:00
@@ -340,6 +358,7 @@ SELECT created_at - INTERVAL '1 month' FROM orders;
 ```
 
 ### Math functions
+
 ```sql
 SELECT ROUND(123.456, 2);  -- 123.46
 SELECT ABS(-100);          -- 100
@@ -349,6 +368,7 @@ SELECT SQRT(16);           -- 4
 ```
 
 ### Coalesce & Null handling
+
 ```sql
 SELECT COALESCE(phone, 'N/A') FROM users;
 SELECT NULLIF(a, b);  -- returns null if a = b, else returns a
@@ -423,6 +443,7 @@ ROLLBACK;
 ```
 
 ### Savepoints
+
 ```sql
 BEGIN;
 INSERT INTO users (name) VALUES ('Alice');
@@ -440,15 +461,17 @@ COMMIT;
 ## 13. Export & Import
 
 ### Export to CSV
+
 ```sql
 COPY users TO '/tmp/users.csv' DELIMITER ',' CSV HEADER;
 ```
 
 ### Import from CSV
+
 ```sql
-COPY users(name, email, age) 
-FROM '/tmp/users.csv' 
-DELIMITER ',' 
+COPY users(name, email, age)
+FROM '/tmp/users.csv'
+DELIMITER ','
 CSV HEADER;
 ```
 
@@ -494,7 +517,7 @@ EXPLAIN SELECT * FROM users WHERE id = 1;
 EXPLAIN ANALYZE SELECT * FROM users WHERE id = 1;
 
 -- List all tables
-SELECT table_name FROM information_schema.tables 
+SELECT table_name FROM information_schema.tables
 WHERE table_schema = 'public';
 
 -- List all columns in a table
@@ -504,4 +527,4 @@ WHERE table_name = 'users';
 
 ---
 
-*Last updated: 2026-03-24*
+_Last updated: 2026-03-24_
