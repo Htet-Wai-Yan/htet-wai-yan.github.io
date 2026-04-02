@@ -1,0 +1,386 @@
+<!DOCTYPE html><html data-theme="retro"> <link rel="stylesheet" href="/_astro/RootLayout.CG0PLQt-.css"><body class="min-h-screen grid justify-center"> <div class="w-full max-w-2xl p-4">  <div> <a href="/" class="btn btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-big-left h-4 w-4"> <path d="M10.793 19.793a.707.707 0 0 0 1.207-.5V16a1 1 0 0 1 1-1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-6a1 1 0 0 1-1-1V4.707a.707.707 0 0 0-1.207-.5l-6.94 6.94a1.207 1.207 0 0 0 0 1.707z"></path>  </svg> Home</a> </div> <div class="prose py-6"> <h1 id="postgresql">PostgreSQL</h1>
+<hr>
+<h2 id="1-basic-commands">1. Basic Commands</h2>
+<h3 id="connect-to-database">Connect to database</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">psql</span><span style="color:#79B8FF"> -U</span><span style="color:#9ECBFF"> username</span><span style="color:#79B8FF"> -d</span><span style="color:#9ECBFF"> database_name</span></span>
+<span class="line"><span style="color:#B392F0">psql</span><span style="color:#79B8FF"> -U</span><span style="color:#9ECBFF"> postgres</span><span style="color:#6A737D">  # default superuser</span></span></code></pre>
+<h3 id="common-commands-inside-psql">Common commands inside psql</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#E1E4E8">\l          </span><span style="color:#6A737D">-- list all databases</span></span>
+<span class="line"><span style="color:#E1E4E8">\c dbname   </span><span style="color:#6A737D">-- connect to database</span></span>
+<span class="line"><span style="color:#E1E4E8">\dt         </span><span style="color:#6A737D">-- list all tables</span></span>
+<span class="line"><span style="color:#E1E4E8">\d tablename</span><span style="color:#6A737D">-- describe table</span></span>
+<span class="line"><span style="color:#E1E4E8">\du         </span><span style="color:#6A737D">-- list all users</span></span>
+<span class="line"><span style="color:#E1E4E8">\q          </span><span style="color:#6A737D">-- quit</span></span>
+<span class="line"><span style="color:#E1E4E8">\h          </span><span style="color:#6A737D">-- help with SQL commands</span></span>
+<span class="line"><span style="color:#E1E4E8">\x          </span><span style="color:#6A737D">-- expanded display (better for wide tables)</span></span></code></pre>
+<hr>
+<h2 id="2-create--manage-databases">2. Create &#x26; Manage Databases</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- Create database</span></span>
+<span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> DATABASE</span><span style="color:#B392F0"> mydb</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Drop database</span></span>
+<span class="line"><span style="color:#F97583">DROP</span><span style="color:#F97583"> DATABASE</span><span style="color:#E1E4E8"> mydb;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Connect to database</span></span>
+<span class="line"><span style="color:#E1E4E8">\c mydb</span></span></code></pre>
+<hr>
+<h2 id="3-create--manage-tables">3. Create &#x26; Manage Tables</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> TABLE</span><span style="color:#B392F0"> users</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">    id </span><span style="color:#F97583">SERIAL</span><span style="color:#F97583"> PRIMARY KEY</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#F97583">    name</span><span style="color:#F97583"> VARCHAR</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">100</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">NOT NULL</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    email </span><span style="color:#F97583">VARCHAR</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">255</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">UNIQUE</span><span style="color:#F97583"> NOT NULL</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    age </span><span style="color:#F97583">INT</span><span style="color:#F97583"> CHECK</span><span style="color:#E1E4E8"> (age </span><span style="color:#F97583">>=</span><span style="color:#79B8FF"> 18</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#E1E4E8">    created_at </span><span style="color:#F97583">TIMESTAMP</span><span style="color:#F97583"> DEFAULT</span><span style="color:#E1E4E8"> CURRENT_TIMESTAMP</span></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Common data types</span></span>
+<span class="line"><span style="color:#6A737D">-- SERIAL          auto-increment integer</span></span>
+<span class="line"><span style="color:#6A737D">-- VARCHAR(n)      variable-length string</span></span>
+<span class="line"><span style="color:#6A737D">-- TEXT             unlimited length string</span></span>
+<span class="line"><span style="color:#6A737D">-- INT, BIGINT     integers</span></span>
+<span class="line"><span style="color:#6A737D">-- DECIMAL(p,s)    exact numeric</span></span>
+<span class="line"><span style="color:#6A737D">-- FLOAT, DOUBLE   approximate numeric</span></span>
+<span class="line"><span style="color:#6A737D">-- BOOLEAN         true/false</span></span>
+<span class="line"><span style="color:#6A737D">-- DATE            date only</span></span>
+<span class="line"><span style="color:#6A737D">-- TIMESTAMP       date + time</span></span>
+<span class="line"><span style="color:#6A737D">-- TIMESTAMPTZ     date + time + timezone</span></span>
+<span class="line"><span style="color:#6A737D">-- JSONB           binary JSON</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Drop table</span></span>
+<span class="line"><span style="color:#F97583">DROP</span><span style="color:#F97583"> TABLE</span><span style="color:#E1E4E8"> users;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Add column</span></span>
+<span class="line"><span style="color:#F97583">ALTER</span><span style="color:#F97583"> TABLE</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">ADD</span><span style="color:#E1E4E8"> COLUMN phone </span><span style="color:#F97583">VARCHAR</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">20</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Remove column</span></span>
+<span class="line"><span style="color:#F97583">ALTER</span><span style="color:#F97583"> TABLE</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">DROP</span><span style="color:#E1E4E8"> COLUMN phone;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Rename table</span></span>
+<span class="line"><span style="color:#F97583">ALTER</span><span style="color:#F97583"> TABLE</span><span style="color:#E1E4E8"> users RENAME </span><span style="color:#F97583">TO</span><span style="color:#E1E4E8"> customers;</span></span></code></pre>
+<hr>
+<h2 id="4-crud-operations">4. CRUD Operations</h2>
+<h3 id="create-insert">Create (Insert)</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- Insert single row</span></span>
+<span class="line"><span style="color:#F97583">INSERT INTO</span><span style="color:#E1E4E8"> users (</span><span style="color:#F97583">name</span><span style="color:#E1E4E8">, email, age)</span></span>
+<span class="line"><span style="color:#F97583">VALUES</span><span style="color:#E1E4E8"> (</span><span style="color:#9ECBFF">'Alice'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'alice@email.com'</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">25</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Insert multiple rows</span></span>
+<span class="line"><span style="color:#F97583">INSERT INTO</span><span style="color:#E1E4E8"> users (</span><span style="color:#F97583">name</span><span style="color:#E1E4E8">, email, age) </span><span style="color:#F97583">VALUES</span></span>
+<span class="line"><span style="color:#E1E4E8">    (</span><span style="color:#9ECBFF">'Bob'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'bob@email.com'</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">30</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#E1E4E8">    (</span><span style="color:#9ECBFF">'Charlie'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'charlie@email.com'</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">22</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Insert and return</span></span>
+<span class="line"><span style="color:#F97583">INSERT INTO</span><span style="color:#E1E4E8"> users (</span><span style="color:#F97583">name</span><span style="color:#E1E4E8">, email)</span></span>
+<span class="line"><span style="color:#F97583">VALUES</span><span style="color:#E1E4E8"> (</span><span style="color:#9ECBFF">'Dave'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'dave@email.com'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">RETURNING id, </span><span style="color:#F97583">name</span><span style="color:#E1E4E8">;</span></span></code></pre>
+<h3 id="read-select">Read (Select)</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- Select all</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#F97583"> *</span><span style="color:#F97583"> FROM</span><span style="color:#E1E4E8"> users;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Select specific columns</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#F97583"> name</span><span style="color:#E1E4E8">, email </span><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> users;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- With condition</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#F97583"> *</span><span style="color:#F97583"> FROM</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">WHERE</span><span style="color:#E1E4E8"> age </span><span style="color:#F97583">>=</span><span style="color:#79B8FF"> 18</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Multiple conditions</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#F97583"> *</span><span style="color:#F97583"> FROM</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">WHERE</span><span style="color:#E1E4E8"> age </span><span style="color:#F97583">>=</span><span style="color:#79B8FF"> 18</span><span style="color:#F97583"> AND</span><span style="color:#E1E4E8"> country </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> 'USA'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Order by</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#F97583"> *</span><span style="color:#F97583"> FROM</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">ORDER BY</span><span style="color:#F97583"> name</span><span style="color:#F97583"> ASC</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#F97583"> *</span><span style="color:#F97583"> FROM</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">ORDER BY</span><span style="color:#E1E4E8"> age </span><span style="color:#F97583">DESC</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Limit</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#F97583"> *</span><span style="color:#F97583"> FROM</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">LIMIT</span><span style="color:#79B8FF"> 10</span><span style="color:#E1E4E8"> OFFSET </span><span style="color:#79B8FF">20</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Distinct</span></span>
+<span class="line"><span style="color:#F97583">SELECT DISTINCT</span><span style="color:#E1E4E8"> country </span><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> users;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Like (pattern matching)</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#F97583"> *</span><span style="color:#F97583"> FROM</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">WHERE</span><span style="color:#E1E4E8"> email </span><span style="color:#F97583">LIKE</span><span style="color:#9ECBFF"> '%@gmail.com'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#F97583"> *</span><span style="color:#F97583"> FROM</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">WHERE</span><span style="color:#F97583"> name</span><span style="color:#F97583"> LIKE</span><span style="color:#9ECBFF"> 'A%'</span><span style="color:#E1E4E8">;  </span><span style="color:#6A737D">-- starts with A</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#F97583"> *</span><span style="color:#F97583"> FROM</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">WHERE</span><span style="color:#F97583"> name</span><span style="color:#F97583"> LIKE</span><span style="color:#9ECBFF"> '%on%'</span><span style="color:#E1E4E8">; </span><span style="color:#6A737D">-- contains 'on'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- In</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#F97583"> *</span><span style="color:#F97583"> FROM</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">WHERE</span><span style="color:#E1E4E8"> country </span><span style="color:#F97583">IN</span><span style="color:#E1E4E8"> (</span><span style="color:#9ECBFF">'USA'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'UK'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'Canada'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Between</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#F97583"> *</span><span style="color:#F97583"> FROM</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">WHERE</span><span style="color:#E1E4E8"> created_at </span><span style="color:#F97583">BETWEEN</span><span style="color:#9ECBFF"> '2024-01-01'</span><span style="color:#F97583"> AND</span><span style="color:#9ECBFF"> '2024-12-31'</span><span style="color:#E1E4E8">;</span></span></code></pre>
+<h3 id="update">Update</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- Update single row</span></span>
+<span class="line"><span style="color:#F97583">UPDATE</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">SET</span><span style="color:#E1E4E8"> age </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 26</span><span style="color:#F97583"> WHERE</span><span style="color:#F97583"> name</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> 'Alice'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Update multiple rows</span></span>
+<span class="line"><span style="color:#F97583">UPDATE</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">SET</span><span style="color:#E1E4E8"> country </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> 'USA'</span><span style="color:#F97583"> WHERE</span><span style="color:#E1E4E8"> country </span><span style="color:#F97583">IS</span><span style="color:#F97583"> NULL</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Update and return</span></span>
+<span class="line"><span style="color:#F97583">UPDATE</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">SET</span><span style="color:#E1E4E8"> age </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> age </span><span style="color:#F97583">+</span><span style="color:#79B8FF"> 1</span><span style="color:#F97583"> WHERE</span><span style="color:#E1E4E8"> id </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8"> RETURNING id, age;</span></span></code></pre>
+<h3 id="delete">Delete</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- Delete row</span></span>
+<span class="line"><span style="color:#F97583">DELETE</span><span style="color:#F97583"> FROM</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">WHERE</span><span style="color:#E1E4E8"> id </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 5</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Delete all rows (keep table)</span></span>
+<span class="line"><span style="color:#F97583">DELETE</span><span style="color:#F97583"> FROM</span><span style="color:#E1E4E8"> users;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Delete and return</span></span>
+<span class="line"><span style="color:#F97583">DELETE</span><span style="color:#F97583"> FROM</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">WHERE</span><span style="color:#E1E4E8"> id </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 5</span><span style="color:#E1E4E8"> RETURNING id, </span><span style="color:#F97583">name</span><span style="color:#E1E4E8">;</span></span></code></pre>
+<hr>
+<h2 id="5-constraints">5. Constraints</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> TABLE</span><span style="color:#B392F0"> examples</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#6A737D">    -- Primary key</span></span>
+<span class="line"><span style="color:#E1E4E8">    id </span><span style="color:#F97583">SERIAL</span><span style="color:#F97583"> PRIMARY KEY</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">    -- Unique</span></span>
+<span class="line"><span style="color:#E1E4E8">    email </span><span style="color:#F97583">VARCHAR</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">255</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">UNIQUE</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">    -- Not null</span></span>
+<span class="line"><span style="color:#F97583">    name</span><span style="color:#F97583"> VARCHAR</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">100</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">NOT NULL</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">    -- Check</span></span>
+<span class="line"><span style="color:#E1E4E8">    age </span><span style="color:#F97583">INT</span><span style="color:#F97583"> CHECK</span><span style="color:#E1E4E8"> (age </span><span style="color:#F97583">>=</span><span style="color:#79B8FF"> 0</span><span style="color:#F97583"> AND</span><span style="color:#E1E4E8"> age </span><span style="color:#F97583">&#x3C;=</span><span style="color:#79B8FF"> 150</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">    -- Default value</span></span>
+<span class="line"><span style="color:#F97583">    status</span><span style="color:#F97583"> VARCHAR</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">20</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">DEFAULT</span><span style="color:#9ECBFF"> 'active'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">    -- Foreign key</span></span>
+<span class="line"><span style="color:#E1E4E8">    country_id </span><span style="color:#F97583">INT</span><span style="color:#F97583"> REFERENCES</span><span style="color:#E1E4E8"> countries(id),</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">    -- Composite primary key</span></span>
+<span class="line"><span style="color:#F97583">    PRIMARY KEY</span><span style="color:#E1E4E8"> (user_id, product_id)</span></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Add constraint after table created</span></span>
+<span class="line"><span style="color:#F97583">ALTER</span><span style="color:#F97583"> TABLE</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">ADD</span><span style="color:#F97583"> CONSTRAINT</span><span style="color:#E1E4E8"> unique_email </span><span style="color:#F97583">UNIQUE</span><span style="color:#E1E4E8"> (email);</span></span>
+<span class="line"><span style="color:#F97583">ALTER</span><span style="color:#F97583"> TABLE</span><span style="color:#E1E4E8"> orders </span><span style="color:#F97583">ADD</span><span style="color:#F97583"> CONSTRAINT</span><span style="color:#E1E4E8"> positive_price </span><span style="color:#F97583">CHECK</span><span style="color:#E1E4E8"> (price </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">);</span></span></code></pre>
+<hr>
+<h2 id="6-joins">6. Joins</h2>
+<h3 id="sample-tables-for-examples">Sample tables for examples</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- users table</span></span>
+<span class="line"><span style="color:#6A737D">-- id | name</span></span>
+<span class="line"><span style="color:#6A737D">-- 1  | Alice</span></span>
+<span class="line"><span style="color:#6A737D">-- 2  | Bob</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- orders table</span></span>
+<span class="line"><span style="color:#6A737D">-- id | user_id | amount</span></span>
+<span class="line"><span style="color:#6A737D">-- 1  | 1       | 100</span></span>
+<span class="line"><span style="color:#6A737D">-- 2  | 1       | 200</span></span>
+<span class="line"><span style="color:#6A737D">-- 3  | 2       | 150</span></span></code></pre>
+<h3 id="inner-join">INNER JOIN</h3>
+<p>Returns rows with matches in both tables.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#F97583">SELECT</span><span style="color:#79B8FF"> users</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">name</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">orders</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">amount</span></span>
+<span class="line"><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> users</span></span>
+<span class="line"><span style="color:#F97583">INNER JOIN</span><span style="color:#E1E4E8"> orders </span><span style="color:#F97583">ON</span><span style="color:#79B8FF"> users</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">id</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> orders</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">user_id</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#6A737D">-- Result: Alice, 100 | Alice, 200 | Bob, 150</span></span></code></pre>
+<h3 id="left-join">LEFT JOIN</h3>
+<p>Returns all rows from left table, matched rows from right.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#F97583">SELECT</span><span style="color:#79B8FF"> users</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">name</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">orders</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">amount</span></span>
+<span class="line"><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> users</span></span>
+<span class="line"><span style="color:#F97583">LEFT JOIN</span><span style="color:#E1E4E8"> orders </span><span style="color:#F97583">ON</span><span style="color:#79B8FF"> users</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">id</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> orders</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">user_id</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#6A737D">-- Result: Alice, 100 | Alice, 200 | Bob, 150 | (null if no orders)</span></span></code></pre>
+<h3 id="right-join">RIGHT JOIN</h3>
+<p>Returns all rows from right table.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#F97583">SELECT</span><span style="color:#79B8FF"> users</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">name</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">orders</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">amount</span></span>
+<span class="line"><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> users</span></span>
+<span class="line"><span style="color:#F97583">RIGHT JOIN</span><span style="color:#E1E4E8"> orders </span><span style="color:#F97583">ON</span><span style="color:#79B8FF"> users</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">id</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> orders</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">user_id</span><span style="color:#E1E4E8">;</span></span></code></pre>
+<h3 id="multiple-joins">Multiple joins</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#F97583">SELECT</span><span style="color:#79B8FF"> u</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">name</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">o</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">amount</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">p</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">name</span><span style="color:#F97583"> as</span><span style="color:#E1E4E8"> product</span></span>
+<span class="line"><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> users u</span></span>
+<span class="line"><span style="color:#F97583">JOIN</span><span style="color:#E1E4E8"> orders o </span><span style="color:#F97583">ON</span><span style="color:#79B8FF"> u</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">id</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> o</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">user_id</span></span>
+<span class="line"><span style="color:#F97583">JOIN</span><span style="color:#E1E4E8"> products p </span><span style="color:#F97583">ON</span><span style="color:#79B8FF"> o</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">product_id</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> p</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">id</span><span style="color:#E1E4E8">;</span></span></code></pre>
+<hr>
+<h2 id="7-aggregations">7. Aggregations</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- Count</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#79B8FF"> COUNT</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">*</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> users;</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#79B8FF"> COUNT</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">DISTINCT</span><span style="color:#E1E4E8"> country) </span><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> users;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Sum, Avg, Min, Max</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#79B8FF"> SUM</span><span style="color:#E1E4E8">(amount) </span><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> orders;</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#79B8FF"> AVG</span><span style="color:#E1E4E8">(age) </span><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> users;</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#79B8FF"> MIN</span><span style="color:#E1E4E8">(price) </span><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> products;</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#79B8FF"> MAX</span><span style="color:#E1E4E8">(price) </span><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> products;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Group by</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#E1E4E8"> country, </span><span style="color:#79B8FF">COUNT</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">*</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">as</span><span style="color:#E1E4E8"> user_count</span></span>
+<span class="line"><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> users</span></span>
+<span class="line"><span style="color:#F97583">GROUP BY</span><span style="color:#E1E4E8"> country;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Having (filter after grouping)</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#E1E4E8"> country, </span><span style="color:#79B8FF">COUNT</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">*</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">as</span><span style="color:#E1E4E8"> count</span></span>
+<span class="line"><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> users</span></span>
+<span class="line"><span style="color:#F97583">GROUP BY</span><span style="color:#E1E4E8"> country</span></span>
+<span class="line"><span style="color:#F97583">HAVING</span><span style="color:#79B8FF"> COUNT</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">*</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 10</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Multiple aggregations</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span></span>
+<span class="line"><span style="color:#E1E4E8">    country,</span></span>
+<span class="line"><span style="color:#79B8FF">    COUNT</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">*</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">as</span><span style="color:#E1E4E8"> total_users,</span></span>
+<span class="line"><span style="color:#79B8FF">    AVG</span><span style="color:#E1E4E8">(age) </span><span style="color:#F97583">as</span><span style="color:#E1E4E8"> avg_age,</span></span>
+<span class="line"><span style="color:#79B8FF">    MAX</span><span style="color:#E1E4E8">(age) </span><span style="color:#F97583">as</span><span style="color:#E1E4E8"> max_age</span></span>
+<span class="line"><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> users</span></span>
+<span class="line"><span style="color:#F97583">GROUP BY</span><span style="color:#E1E4E8"> country;</span></span></code></pre>
+<hr>
+<h2 id="8-subqueries">8. Subqueries</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- Subquery in WHERE</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#F97583"> *</span><span style="color:#F97583"> FROM</span><span style="color:#E1E4E8"> users</span></span>
+<span class="line"><span style="color:#F97583">WHERE</span><span style="color:#E1E4E8"> age </span><span style="color:#F97583">></span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">SELECT</span><span style="color:#79B8FF"> AVG</span><span style="color:#E1E4E8">(age) </span><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> users);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Subquery in FROM</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#E1E4E8"> country, avg_age</span></span>
+<span class="line"><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">SELECT</span><span style="color:#E1E4E8"> country, </span><span style="color:#79B8FF">AVG</span><span style="color:#E1E4E8">(age) </span><span style="color:#F97583">as</span><span style="color:#E1E4E8"> avg_age </span><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">GROUP BY</span><span style="color:#E1E4E8"> country) </span><span style="color:#F97583">as</span><span style="color:#F97583"> stats</span></span>
+<span class="line"><span style="color:#F97583">WHERE</span><span style="color:#E1E4E8"> avg_age </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 25</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Subquery in SELECT</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#F97583"> name</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    (</span><span style="color:#F97583">SELECT</span><span style="color:#79B8FF"> COUNT</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">*</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> orders </span><span style="color:#F97583">WHERE</span><span style="color:#79B8FF"> orders</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">user_id</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> users</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">id</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">as</span><span style="color:#E1E4E8"> order_count</span></span>
+<span class="line"><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> users;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- IN with subquery</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#F97583"> *</span><span style="color:#F97583"> FROM</span><span style="color:#E1E4E8"> products</span></span>
+<span class="line"><span style="color:#F97583">WHERE</span><span style="color:#E1E4E8"> category_id </span><span style="color:#F97583">IN</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">SELECT</span><span style="color:#E1E4E8"> id </span><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> categories </span><span style="color:#F97583">WHERE</span><span style="color:#F97583"> name</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> 'Electronics'</span><span style="color:#E1E4E8">);</span></span></code></pre>
+<hr>
+<h2 id="9-common-functions">9. Common Functions</h2>
+<h3 id="string-functions">String functions</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#F97583">SELECT</span><span style="color:#79B8FF"> UPPER</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'hello'</span><span style="color:#E1E4E8">);        </span><span style="color:#6A737D">-- HELLO</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#79B8FF"> LOWER</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'HELLO'</span><span style="color:#E1E4E8">);        </span><span style="color:#6A737D">-- hello</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#F97583"> LENGTH</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'hello'</span><span style="color:#E1E4E8">);       </span><span style="color:#6A737D">-- 5</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#79B8FF"> TRIM</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'  hello  '</span><span style="color:#E1E4E8">);     </span><span style="color:#6A737D">-- hello</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#79B8FF"> CONCAT</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Hello'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">' '</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'World'</span><span style="color:#E1E4E8">); </span><span style="color:#6A737D">-- Hello World</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#79B8FF"> SUBSTRING</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Hello'</span><span style="color:#F97583"> FROM</span><span style="color:#79B8FF"> 1</span><span style="color:#F97583"> FOR</span><span style="color:#79B8FF"> 3</span><span style="color:#E1E4E8">); </span><span style="color:#6A737D">-- Hel</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#79B8FF"> REPLACE</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Hello'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'l'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'r'</span><span style="color:#E1E4E8">); </span><span style="color:#6A737D">-- Herro</span></span></code></pre>
+<h3 id="date-functions">Date functions</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#F97583">SELECT</span><span style="color:#E1E4E8"> CURRENT_DATE;      </span><span style="color:#6A737D">-- 2024-01-15</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#E1E4E8"> CURRENT_TIMESTAMP; </span><span style="color:#6A737D">-- 2024-01-15 10:30:00</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#F97583"> NOW</span><span style="color:#E1E4E8">();             </span><span style="color:#6A737D">-- with timezone</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#E1E4E8"> EXTRACT(</span><span style="color:#F97583">YEAR</span><span style="color:#F97583"> FROM</span><span style="color:#E1E4E8"> created_at);</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#E1E4E8"> EXTRACT(</span><span style="color:#F97583">MONTH</span><span style="color:#F97583"> FROM</span><span style="color:#E1E4E8"> created_at);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Age calculation</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#E1E4E8"> AGE(created_at) </span><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> users;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Date arithmetic</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#E1E4E8"> created_at </span><span style="color:#F97583">+</span><span style="color:#E1E4E8"> INTERVAL </span><span style="color:#9ECBFF">'7 days'</span><span style="color:#F97583"> FROM</span><span style="color:#E1E4E8"> orders;</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#E1E4E8"> created_at </span><span style="color:#F97583">-</span><span style="color:#E1E4E8"> INTERVAL </span><span style="color:#9ECBFF">'1 month'</span><span style="color:#F97583"> FROM</span><span style="color:#E1E4E8"> orders;</span></span></code></pre>
+<h3 id="math-functions">Math functions</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#F97583">SELECT</span><span style="color:#79B8FF"> ROUND</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">123</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">456</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">);  </span><span style="color:#6A737D">-- 123.46</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#79B8FF"> ABS</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">-</span><span style="color:#79B8FF">100</span><span style="color:#E1E4E8">);          </span><span style="color:#6A737D">-- 100</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#E1E4E8"> MOD(</span><span style="color:#79B8FF">10</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">);         </span><span style="color:#6A737D">-- 1</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#79B8FF"> POWER</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">);       </span><span style="color:#6A737D">-- 8</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#79B8FF"> SQRT</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">16</span><span style="color:#E1E4E8">);           </span><span style="color:#6A737D">-- 4</span></span></code></pre>
+<h3 id="coalesce--null-handling">Coalesce &#x26; Null handling</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#F97583">SELECT</span><span style="color:#79B8FF"> COALESCE</span><span style="color:#E1E4E8">(phone, </span><span style="color:#9ECBFF">'N/A'</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> users;</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#79B8FF"> NULLIF</span><span style="color:#E1E4E8">(a, b);  </span><span style="color:#6A737D">-- returns null if a = b, else returns a</span></span></code></pre>
+<hr>
+<h2 id="10-views">10. Views</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- Create view</span></span>
+<span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> VIEW</span><span style="color:#B392F0"> active_users</span><span style="color:#F97583"> AS</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#F97583"> name</span><span style="color:#E1E4E8">, email </span><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">WHERE</span><span style="color:#F97583"> status</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> 'active'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Use view</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#F97583"> *</span><span style="color:#F97583"> FROM</span><span style="color:#E1E4E8"> active_users;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Update view (with conditions)</span></span>
+<span class="line"><span style="color:#F97583">CREATE OR REPLACE</span><span style="color:#F97583"> VIEW</span><span style="color:#B392F0"> active_users</span><span style="color:#F97583"> AS</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#F97583"> name</span><span style="color:#E1E4E8">, email, created_at </span><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">WHERE</span><span style="color:#F97583"> status</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> 'active'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Drop view</span></span>
+<span class="line"><span style="color:#F97583">DROP</span><span style="color:#F97583"> VIEW</span><span style="color:#E1E4E8"> active_users;</span></span></code></pre>
+<hr>
+<h2 id="11-indexes">11. Indexes</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- Create index</span></span>
+<span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> INDEX</span><span style="color:#B392F0"> idx_users_email</span><span style="color:#F97583"> ON</span><span style="color:#E1E4E8"> users(email);</span></span>
+<span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> INDEX</span><span style="color:#B392F0"> idx_orders_user_id</span><span style="color:#F97583"> ON</span><span style="color:#E1E4E8"> orders(user_id);</span></span>
+<span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> INDEX</span><span style="color:#B392F0"> idx_users_age</span><span style="color:#F97583"> ON</span><span style="color:#E1E4E8"> users(age </span><span style="color:#F97583">DESC</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Composite index</span></span>
+<span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> INDEX</span><span style="color:#B392F0"> idx_orders_user_date</span><span style="color:#F97583"> ON</span><span style="color:#E1E4E8"> orders(user_id, created_at);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Unique index</span></span>
+<span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> UNIQUE INDEX</span><span style="color:#B392F0"> idx_users_email</span><span style="color:#F97583"> ON</span><span style="color:#E1E4E8"> users(email);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Drop index</span></span>
+<span class="line"><span style="color:#F97583">DROP</span><span style="color:#F97583"> INDEX</span><span style="color:#E1E4E8"> idx_users_email;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- When to use indexes:</span></span>
+<span class="line"><span style="color:#6A737D">-- - Columns in WHERE clauses</span></span>
+<span class="line"><span style="color:#6A737D">-- - Columns in JOIN conditions</span></span>
+<span class="line"><span style="color:#6A737D">-- - Columns in ORDER BY</span></span>
+<span class="line"><span style="color:#6A737D">-- - High-cardinality columns (many unique values)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- When NOT to use:</span></span>
+<span class="line"><span style="color:#6A737D">-- - Small tables</span></span>
+<span class="line"><span style="color:#6A737D">-- - Low-cardinality columns (few unique values)</span></span>
+<span class="line"><span style="color:#6A737D">-- - Frequently updated columns</span></span></code></pre>
+<hr>
+<h2 id="12-transactions">12. Transactions</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#F97583">BEGIN</span><span style="color:#E1E4E8">;  </span><span style="color:#6A737D">-- or START TRANSACTION;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">UPDATE</span><span style="color:#E1E4E8"> accounts </span><span style="color:#F97583">SET</span><span style="color:#E1E4E8"> balance </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> balance </span><span style="color:#F97583">-</span><span style="color:#79B8FF"> 100</span><span style="color:#F97583"> WHERE</span><span style="color:#E1E4E8"> id </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">UPDATE</span><span style="color:#E1E4E8"> accounts </span><span style="color:#F97583">SET</span><span style="color:#E1E4E8"> balance </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> balance </span><span style="color:#F97583">+</span><span style="color:#79B8FF"> 100</span><span style="color:#F97583"> WHERE</span><span style="color:#E1E4E8"> id </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 2</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- If everything looks good</span></span>
+<span class="line"><span style="color:#F97583">COMMIT</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- If something went wrong</span></span>
+<span class="line"><span style="color:#F97583">ROLLBACK</span><span style="color:#E1E4E8">;</span></span></code></pre>
+<h3 id="savepoints">Savepoints</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#F97583">BEGIN</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">INSERT INTO</span><span style="color:#E1E4E8"> users (</span><span style="color:#F97583">name</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">VALUES</span><span style="color:#E1E4E8"> (</span><span style="color:#9ECBFF">'Alice'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">SAVEPOINT sp1;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">INSERT INTO</span><span style="color:#E1E4E8"> users (</span><span style="color:#F97583">name</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">VALUES</span><span style="color:#E1E4E8"> (</span><span style="color:#9ECBFF">'Bob'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#F97583">ROLLBACK</span><span style="color:#F97583"> TO</span><span style="color:#E1E4E8"> SAVEPOINT sp1;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">COMMIT</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#6A737D">-- Only Alice will be inserted</span></span></code></pre>
+<hr>
+<h2 id="13-export--import">13. Export &#x26; Import</h2>
+<h3 id="export-to-csv">Export to CSV</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#F97583">COPY</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">TO</span><span style="color:#9ECBFF"> '/tmp/users.csv'</span><span style="color:#E1E4E8"> DELIMITER </span><span style="color:#9ECBFF">','</span><span style="color:#E1E4E8"> CSV HEADER;</span></span></code></pre>
+<h3 id="import-from-csv">Import from CSV</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#F97583">COPY</span><span style="color:#E1E4E8"> users(</span><span style="color:#F97583">name</span><span style="color:#E1E4E8">, email, age)</span></span>
+<span class="line"><span style="color:#F97583">FROM</span><span style="color:#9ECBFF"> '/tmp/users.csv'</span></span>
+<span class="line"><span style="color:#E1E4E8">DELIMITER </span><span style="color:#9ECBFF">','</span></span>
+<span class="line"><span style="color:#E1E4E8">CSV HEADER;</span></span></code></pre>
+<hr>
+<h2 id="14-user-management">14. User Management</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- Create user</span></span>
+<span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> USER</span><span style="color:#B392F0"> alice</span><span style="color:#F97583"> WITH</span><span style="color:#F97583"> PASSWORD</span><span style="color:#9ECBFF"> 'password123'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Grant privileges</span></span>
+<span class="line"><span style="color:#F97583">GRANT</span><span style="color:#E1E4E8"> ALL PRIVILEGES </span><span style="color:#F97583">ON</span><span style="color:#F97583"> DATABASE</span><span style="color:#E1E4E8"> mydb </span><span style="color:#F97583">TO</span><span style="color:#E1E4E8"> alice;</span></span>
+<span class="line"><span style="color:#F97583">GRANT</span><span style="color:#E1E4E8"> ALL PRIVILEGES </span><span style="color:#F97583">ON</span><span style="color:#E1E4E8"> ALL TABLES </span><span style="color:#F97583">IN</span><span style="color:#F97583"> SCHEMA</span><span style="color:#E1E4E8"> public </span><span style="color:#F97583">TO</span><span style="color:#E1E4E8"> alice;</span></span>
+<span class="line"><span style="color:#F97583">GRANT</span><span style="color:#E1E4E8"> ALL PRIVILEGES </span><span style="color:#F97583">ON</span><span style="color:#E1E4E8"> ALL SEQUENCES </span><span style="color:#F97583">IN</span><span style="color:#F97583"> SCHEMA</span><span style="color:#E1E4E8"> public </span><span style="color:#F97583">TO</span><span style="color:#E1E4E8"> alice;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Revoke privileges</span></span>
+<span class="line"><span style="color:#F97583">REVOKE</span><span style="color:#E1E4E8"> ALL PRIVILEGES </span><span style="color:#F97583">ON</span><span style="color:#F97583"> DATABASE</span><span style="color:#E1E4E8"> mydb </span><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> alice;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Drop user</span></span>
+<span class="line"><span style="color:#F97583">DROP</span><span style="color:#F97583"> USER</span><span style="color:#E1E4E8"> alice;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Change password</span></span>
+<span class="line"><span style="color:#F97583">ALTER</span><span style="color:#F97583"> USER</span><span style="color:#E1E4E8"> alice </span><span style="color:#F97583">WITH</span><span style="color:#F97583"> PASSWORD</span><span style="color:#9ECBFF"> 'newpassword'</span><span style="color:#E1E4E8">;</span></span></code></pre>
+<hr>
+<h2 id="15-useful-tips">15. Useful Tips</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- Get table size</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#E1E4E8"> pg_size_pretty(pg_total_relation_size(</span><span style="color:#9ECBFF">'users'</span><span style="color:#E1E4E8">));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Get database size</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#E1E4E8"> pg_size_pretty(pg_database_size(</span><span style="color:#9ECBFF">'mydb'</span><span style="color:#E1E4E8">));</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Show query execution time</span></span>
+<span class="line"><span style="color:#E1E4E8">\timing </span><span style="color:#F97583">on</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Explain query (check performance)</span></span>
+<span class="line"><span style="color:#E1E4E8">EXPLAIN </span><span style="color:#F97583">SELECT</span><span style="color:#F97583"> *</span><span style="color:#F97583"> FROM</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">WHERE</span><span style="color:#E1E4E8"> id </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">EXPLAIN ANALYZE </span><span style="color:#F97583">SELECT</span><span style="color:#F97583"> *</span><span style="color:#F97583"> FROM</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">WHERE</span><span style="color:#E1E4E8"> id </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- List all tables</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#E1E4E8"> table_name </span><span style="color:#F97583">FROM</span><span style="color:#79B8FF"> information_schema</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">tables</span></span>
+<span class="line"><span style="color:#F97583">WHERE</span><span style="color:#E1E4E8"> table_schema </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> 'public'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- List all columns in a table</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span><span style="color:#E1E4E8"> column_name, data_type </span><span style="color:#F97583">FROM</span><span style="color:#79B8FF"> information_schema</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">columns</span></span>
+<span class="line"><span style="color:#F97583">WHERE</span><span style="color:#E1E4E8"> table_name </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> 'users'</span><span style="color:#E1E4E8">;</span></span></code></pre>
+<hr>
+<p><em>Last updated: 2026-03-24</em></p> <a href="/" class="btn btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-big-left h-4 w-4"> <path d="M10.793 19.793a.707.707 0 0 0 1.207-.5V16a1 1 0 0 1 1-1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-6a1 1 0 0 1-1-1V4.707a.707.707 0 0 0-1.207-.5l-6.94 6.94a1.207 1.207 0 0 0 0 1.707z"></path>  </svg> Home</a> </div>  </div> </body></html>

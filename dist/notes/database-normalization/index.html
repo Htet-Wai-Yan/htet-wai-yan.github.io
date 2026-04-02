@@ -1,0 +1,325 @@
+<!DOCTYPE html><html data-theme="retro"> <link rel="stylesheet" href="/_astro/RootLayout.CG0PLQt-.css"><body class="min-h-screen grid justify-center"> <div class="w-full max-w-2xl p-4">  <div> <a href="/" class="btn btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-big-left h-4 w-4"> <path d="M10.793 19.793a.707.707 0 0 0 1.207-.5V16a1 1 0 0 1 1-1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-6a1 1 0 0 1-1-1V4.707a.707.707 0 0 0-1.207-.5l-6.94 6.94a1.207 1.207 0 0 0 0 1.707z"></path>  </svg> Home</a> </div> <div class="prose py-6"> <h1 id="database-normalization">Database Normalization</h1>
+<p>This guide follows a relatable example: an <strong>online store</strong> that sells products to customers. We’ll see how to fix data step by step.</p>
+<hr>
+<h2 id="1nf---first-normal-form">1NF - First Normal Form</h2>
+<p><strong>Rule:</strong> Each cell holds one single value. No repeating groups.</p>
+<p>Imagine a spreadsheet tracking orders. One column shouldn’t hold multiple values.</p>
+<h3 id="before-not-1nf">Before (not 1NF)</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>order_id</th><th>customer</th><th>products</th><th>total</th></tr></thead><tbody><tr><td>1</td><td>Alice</td><td>Laptop, Mouse, Cable</td><td>$1500</td></tr><tr><td>2</td><td>Bob</td><td>Keyboard</td><td>$200</td></tr></tbody></table>
+<p>The <code>products</code> column has multiple items separated by commas. That’s messy.</p>
+<h3 id="after-1nf">After (1NF)</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>order_id</th><th>customer</th><th>product</th><th>price</th></tr></thead><tbody><tr><td>1</td><td>Alice</td><td>Laptop</td><td>$1000</td></tr><tr><td>1</td><td>Alice</td><td>Mouse</td><td>$50</td></tr><tr><td>1</td><td>Alice</td><td>Cable</td><td>$50</td></tr><tr><td>2</td><td>Bob</td><td>Keyboard</td><td>$200</td></tr></tbody></table>
+<p>Each row now holds exactly one product. Clean and simple.</p>
+<h3 id="postgresql">PostgreSQL</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> TABLE</span><span style="color:#B392F0"> customers</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">    customer_id </span><span style="color:#F97583">INT</span><span style="color:#F97583"> PRIMARY KEY</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#F97583">    name</span><span style="color:#F97583"> VARCHAR</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">100</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> TABLE</span><span style="color:#B392F0"> products</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">    product_id </span><span style="color:#F97583">INT</span><span style="color:#F97583"> PRIMARY KEY</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#F97583">    name</span><span style="color:#F97583"> VARCHAR</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">100</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#E1E4E8">    price </span><span style="color:#F97583">DECIMAL</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">10</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> TABLE</span><span style="color:#B392F0"> orders</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">    order_id </span><span style="color:#F97583">INT</span><span style="color:#F97583"> PRIMARY KEY</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    customer_id </span><span style="color:#F97583">INT</span><span style="color:#F97583"> REFERENCES</span><span style="color:#E1E4E8"> customers(customer_id)</span></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> TABLE</span><span style="color:#B392F0"> order_items</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">    order_id </span><span style="color:#F97583">INT</span><span style="color:#F97583"> REFERENCES</span><span style="color:#E1E4E8"> orders(order_id),</span></span>
+<span class="line"><span style="color:#E1E4E8">    product_id </span><span style="color:#F97583">INT</span><span style="color:#F97583"> REFERENCES</span><span style="color:#E1E4E8"> products(product_id),</span></span>
+<span class="line"><span style="color:#E1E4E8">    price_at_purchase </span><span style="color:#F97583">DECIMAL</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">10</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#F97583">    PRIMARY KEY</span><span style="color:#E1E4E8"> (order_id, product_id)</span></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span></code></pre>
+<hr>
+<h2 id="2nf---second-normal-form">2NF - Second Normal Form</h2>
+<p><strong>Rule:</strong> Must be in 1NF first. Every column depends on the entire key.</p>
+<p>If your primary key has two columns (composite key), nothing should depend on just one of them.</p>
+<p>In our example, <code>order_items</code> has a composite key: (<code>order_id</code>, <code>product_id</code>).</p>
+<h3 id="the-problem">The Problem</h3>
+<p>If we added <code>customer_name</code> to <code>order_items</code>:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>order_id</th><th>product_id</th><th>customer_name</th><th>price</th></tr></thead><tbody><tr><td>1</td><td>1</td><td>Alice</td><td>$1000</td></tr><tr><td>1</td><td>2</td><td>Alice</td><td>$50</td></tr></tbody></table>
+<p><code>customer_name</code> only depends on <code>order_id</code>, not on <code>product_id</code>. This causes duplication and confusion.</p>
+<h3 id="after-2nf">After (2NF)</h3>
+<p>Move <code>customer_name</code> to the <code>orders</code> table where it belongs.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> TABLE</span><span style="color:#B392F0"> orders</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">    order_id </span><span style="color:#F97583">INT</span><span style="color:#F97583"> PRIMARY KEY</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    customer_id </span><span style="color:#F97583">INT</span><span style="color:#F97583"> REFERENCES</span><span style="color:#E1E4E8"> customers(customer_id),</span></span>
+<span class="line"><span style="color:#E1E4E8">    order_date </span><span style="color:#F97583">TIMESTAMP</span></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span></code></pre>
+<p>Each table now has data that truly belongs there:</p>
+<ul>
+<li><code>orders</code> → order-level info (customer, date)</li>
+<li><code>order_items</code> → line-item info (product, price paid)</li>
+</ul>
+<hr>
+<h2 id="3nf---third-normal-form">3NF - Third Normal Form</h2>
+<p><strong>Rule:</strong> Must be in 2NF first. No column should depend on another non-key column.</p>
+<p>If you can calculate one value from others, don’t store it.</p>
+<h3 id="the-problem-1">The Problem</h3>
+<p>If we stored <code>price</code> and <code>quantity</code> in <code>order_items</code>, plus the pre-calculated <code>subtotal</code>:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>order_id</th><th>product_id</th><th>price</th><th>quantity</th><th>subtotal</th></tr></thead><tbody><tr><td>1</td><td>1</td><td>$1000</td><td>2</td><td>$2000</td></tr></tbody></table>
+<p><code>subtotal</code> = <code>price * quantity</code>. It can be calculated. Storing it invites errors.</p>
+<h3 id="after-3nf">After (3NF)</h3>
+<p>Remove <code>subtotal</code>. Calculate it when you need it.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> TABLE</span><span style="color:#B392F0"> order_items</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">    order_id </span><span style="color:#F97583">INT</span><span style="color:#F97583"> REFERENCES</span><span style="color:#E1E4E8"> orders(order_id),</span></span>
+<span class="line"><span style="color:#E1E4E8">    product_id </span><span style="color:#F97583">INT</span><span style="color:#F97583"> REFERENCES</span><span style="color:#E1E4E8"> products(product_id),</span></span>
+<span class="line"><span style="color:#E1E4E8">    quantity </span><span style="color:#F97583">INT</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    price_at_purchase </span><span style="color:#F97583">DECIMAL</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">10</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#F97583">    PRIMARY KEY</span><span style="color:#E1E4E8"> (order_id, product_id)</span></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Get subtotal on-the-fly:</span></span>
+<span class="line"><span style="color:#F97583">SELECT</span></span>
+<span class="line"><span style="color:#E1E4E8">    order_id,</span></span>
+<span class="line"><span style="color:#E1E4E8">    product_id,</span></span>
+<span class="line"><span style="color:#E1E4E8">    quantity,</span></span>
+<span class="line"><span style="color:#E1E4E8">    price_at_purchase,</span></span>
+<span class="line"><span style="color:#E1E4E8">    quantity </span><span style="color:#F97583">*</span><span style="color:#E1E4E8"> price_at_purchase </span><span style="color:#F97583">AS</span><span style="color:#E1E4E8"> subtotal</span></span>
+<span class="line"><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> order_items;</span></span></code></pre>
+<p>Store only what can’t be derived from other data.</p>
+<hr>
+<h2 id="bcnf---boyce-codd-normal-form">BCNF - Boyce-Codd Normal Form</h2>
+<p><strong>Rule:</strong> A stricter 3NF. Handles tricky cases where columns determine each other.</p>
+<h3 id="the-problem-2">The Problem</h3>
+<p>Suppose we add support agents to handle orders:</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>order_id</th><th>customer_id</th><th>agent_id</th><th>agent_name</th></tr></thead><tbody><tr><td>1</td><td>100</td><td>A1</td><td>John</td></tr><tr><td>2</td><td>101</td><td>A1</td><td>John</td></tr><tr><td>3</td><td>102</td><td>A2</td><td>Jane</td></tr></tbody></table>
+<p>Rules:</p>
+<ul>
+<li>Each order has one agent</li>
+<li>Each agent handles multiple orders</li>
+<li><code>agent_id</code> determines <code>agent_name</code></li>
+</ul>
+<p>But <code>agent_id</code> is not a key, and it determines <code>agent_name</code>. This violates BCNF.</p>
+<h3 id="after-bcnf">After (BCNF)</h3>
+<p>Split agents into their own table:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> TABLE</span><span style="color:#B392F0"> agents</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">    agent_id </span><span style="color:#F97583">VARCHAR</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">10</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">PRIMARY KEY</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    agent_name </span><span style="color:#F97583">VARCHAR</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">100</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> TABLE</span><span style="color:#B392F0"> orders</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">    order_id </span><span style="color:#F97583">INT</span><span style="color:#F97583"> PRIMARY KEY</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    customer_id </span><span style="color:#F97583">INT</span><span style="color:#F97583"> REFERENCES</span><span style="color:#E1E4E8"> customers(customer_id),</span></span>
+<span class="line"><span style="color:#E1E4E8">    agent_id </span><span style="color:#F97583">VARCHAR</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">10</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">REFERENCES</span><span style="color:#E1E4E8"> agents(agent_id)</span></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span></code></pre>
+<p>Now each column’s dependencies are on proper keys. No anomalies when inserting, updating, or deleting agents.</p>
+<hr>
+<h2 id="summary">Summary</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Level</th><th>Problem It Solves</th><th>Fix</th><th>Example in Our Store</th></tr></thead><tbody><tr><td>1NF</td><td>Multiple values in one cell</td><td>Split into separate rows</td><td>Products now one per row instead of comma-separated</td></tr><tr><td>2NF</td><td>Columns depending on part of a composite key</td><td>Move to their own table</td><td>Customer info moved from order_items to orders</td></tr><tr><td>3NF</td><td>Calculated/derived values stored</td><td>Remove and compute when needed</td><td>Subtotal removed, calculated via query</td></tr><tr><td>BCNF</td><td>Non-key column determining another column</td><td>Split into separate table</td><td>Agents moved to own table with agent_id as key</td></tr></tbody></table>
+<h3 id="quick-checklist">Quick Checklist</h3>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" disabled> Each cell has one value (1NF)</li>
+<li class="task-list-item"><input type="checkbox" disabled> All columns depend on the full key, not just part (2NF)</li>
+<li class="task-list-item"><input type="checkbox" disabled> No redundant data that can be calculated (3NF)</li>
+<li class="task-list-item"><input type="checkbox" disabled> No column determines another non-key column (BCNF)</li>
+</ul>
+<h3 id="trade-offs">Trade-offs</h3>
+<ul>
+<li><strong>Higher NF</strong> = less redundancy, easier to maintain, fewer update anomalies</li>
+<li><strong>Lower NF</strong> = faster queries, simpler joins, sometimes better read performance</li>
+</ul>
+<p>Don’t over-normalize prematurely. Start simple, refactor as needed.</p>
+<hr>
+<h2 id="rules-of-thumb-for-schema-design">Rules of Thumb for Schema Design</h2>
+<ol>
+<li>
+<p><strong>Start simple, normalize later</strong> - Get it working first, optimize later.</p>
+</li>
+<li>
+<p><strong>Identify entities first</strong> - What objects exist? (customer, order, product) → each becomes a table.</p>
+</li>
+<li>
+<p><strong>Find relationships</strong> - One-to-many? Many-to-many? Use foreign keys or junction tables.</p>
+</li>
+<li>
+<p><strong>Each table one theme</strong> - Don’t mix customer info with order info in the same table.</p>
+</li>
+<li>
+<p><strong>Primary key rule</strong> - Every table needs one. Use auto-increment IDs unless you have a natural key.</p>
+</li>
+<li>
+<p><strong>Ask: does this column depend on the whole key?</strong> - If no → move to another table.</p>
+</li>
+<li>
+<p><strong>Ask: can I calculate this from other columns?</strong> - If yes → don’t store it.</p>
+</li>
+<li>
+<p><strong>Denormalize when needed</strong> - Sometimes for performance, you intentionally break NF. That’s okay.</p>
+</li>
+<li>
+<p><strong>Naming</strong> - Use singular, lowercase with underscores: <code>customer</code>, <code>order_item</code>, not <code>CustomerOrders</code>.</p>
+</li>
+<li>
+<p><strong>Draw it first</strong> - ER diagram before SQL. Helps spot issues early.</p>
+</li>
+</ol>
+<hr>
+<p><em>Last updated: 2026-03-24</em></p> <a href="/" class="btn btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-big-left h-4 w-4"> <path d="M10.793 19.793a.707.707 0 0 0 1.207-.5V16a1 1 0 0 1 1-1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-6a1 1 0 0 1-1-1V4.707a.707.707 0 0 0-1.207-.5l-6.94 6.94a1.207 1.207 0 0 0 0 1.707z"></path>  </svg> Home</a> </div>  </div> </body></html>
