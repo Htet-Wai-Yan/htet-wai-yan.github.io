@@ -8,6 +8,8 @@ coAuthor: "opencode"
 
 # Supabase Tables
 
+---
+
 ## Creating Tables
 
 ```sql
@@ -148,3 +150,7 @@ ALTER TABLE posts ADD COLUMN status post_status DEFAULT 'draft';
 | One-to-Many | `FK` on child table |
 | Many-to-Many | Junction table with composite PK |
 | One-to-One | `FK` with unique constraint |
+
+---
+
+_Last updated: 2026-04-02_
