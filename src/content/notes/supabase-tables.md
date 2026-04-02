@@ -1,11 +1,12 @@
 ---
-title: "Supabase SQL: Tables, Relations & Constraints"
-date: "2026-04-02"
+title: "Supabase Tables"
 description: "A quick reference for creating tables, relationships, and constraints in Supabase/PostgreSQL"
 tags: ["supabase", "sql", "postgres", "database"]
+updated: "2026-04-02"
+coAuthor: "opencode"
 ---
 
-# Supabase SQL: Tables, Relations & Constraints
+# Supabase Tables
 
 ## Creating Tables
 
