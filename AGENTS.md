@@ -15,7 +15,8 @@
 
 ## Git Workflow
 
-- Always push changes after creating new notes in `src/content/notes/`
+- When creating a new .md file in `src/content/notes/`, automatically commit and push ONLY that file
+- Don't include other modified files in the commit
 
 ## Preferences
 
