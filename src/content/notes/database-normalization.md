@@ -1,6 +1,7 @@
 ---
 title: "Database Normalization"
 description: "Learn database normalization forms (1NF to BCNF) with practical examples"
+tags: ["database", "normalization", "sql"]
 updated: "2026-03-24"
 coAuthor: "opencode"
 ---

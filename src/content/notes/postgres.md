@@ -1,6 +1,7 @@
 ---
 title: "PostgreSQL"
 description: "Complete guide to PostgreSQL basics, queries, joins, and operations"
+tags: ["postgresql", "sql", "database"]
 updated: "2026-03-24"
 coAuthor: "opencode"
 ---
