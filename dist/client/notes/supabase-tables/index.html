@@ -1,0 +1,118 @@
+<!DOCTYPE html><html data-theme="retro"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><script src="/htmx.min.js"></script><link rel="stylesheet" href="/_astro/_id_@_@astro.Dc7_reDc.css"></head> <body class="min-h-screen grid justify-center"> <div class="w-full max-w-2xl p-4">  <div> <a href="/" class="btn btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-big-left h-4 w-4"> <path d="M10.793 19.793a.707.707 0 0 0 1.207-.5V16a1 1 0 0 1 1-1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-6a1 1 0 0 1-1-1V4.707a.707.707 0 0 0-1.207-.5l-6.94 6.94a1.207 1.207 0 0 0 0 1.707z"></path>  </svg> Home</a> </div> <div class="prose py-6"> <h1 id="supabase-tables">Supabase Tables</h1>
+<p>This guide covers table creation, relationship types, and constraints for Supabase projects using PostgreSQL.</p>
+<hr>
+<h2 id="1-creating-tables">1. Creating Tables</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- Basic table</span></span>
+<span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> TABLE</span><span style="color:#B392F0"> users</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">  id UUID </span><span style="color:#F97583">PRIMARY KEY</span><span style="color:#F97583"> DEFAULT</span><span style="color:#E1E4E8"> gen_random_uuid(),</span></span>
+<span class="line"><span style="color:#E1E4E8">  email </span><span style="color:#F97583">TEXT</span><span style="color:#F97583"> UNIQUE</span><span style="color:#F97583"> NOT NULL</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#F97583">  name</span><span style="color:#F97583"> TEXT</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  created_at </span><span style="color:#F97583">TIMESTAMP WITH TIME ZONE</span><span style="color:#F97583"> DEFAULT</span><span style="color:#F97583"> NOW</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span></code></pre>
+<hr>
+<h2 id="2-relationships">2. Relationships</h2>
+<h3 id="one-to-many-has-many">One-to-Many (has many)</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- users -> posts (one user has many posts)</span></span>
+<span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> TABLE</span><span style="color:#B392F0"> posts</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">  id UUID </span><span style="color:#F97583">PRIMARY KEY</span><span style="color:#F97583"> DEFAULT</span><span style="color:#E1E4E8"> gen_random_uuid(),</span></span>
+<span class="line"><span style="color:#E1E4E8">  user_id UUID </span><span style="color:#F97583">REFERENCES</span><span style="color:#E1E4E8"> users(id) </span><span style="color:#F97583">ON DELETE CASCADE</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  title </span><span style="color:#F97583">TEXT</span><span style="color:#F97583"> NOT NULL</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  content </span><span style="color:#F97583">TEXT</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  created_at </span><span style="color:#F97583">TIMESTAMP WITH TIME ZONE</span><span style="color:#F97583"> DEFAULT</span><span style="color:#F97583"> NOW</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span></code></pre>
+<h3 id="many-to-many-belongs-to-many">Many-to-Many (belongs to many)</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- posts &#x3C;-> tags (many-to-many via junction table)</span></span>
+<span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> TABLE</span><span style="color:#B392F0"> tags</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">  id UUID </span><span style="color:#F97583">PRIMARY KEY</span><span style="color:#F97583"> DEFAULT</span><span style="color:#E1E4E8"> gen_random_uuid(),</span></span>
+<span class="line"><span style="color:#F97583">  name</span><span style="color:#F97583"> TEXT</span><span style="color:#F97583"> UNIQUE</span><span style="color:#F97583"> NOT NULL</span></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> TABLE</span><span style="color:#B392F0"> post_tags</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">  post_id UUID </span><span style="color:#F97583">REFERENCES</span><span style="color:#E1E4E8"> posts(id) </span><span style="color:#F97583">ON DELETE CASCADE</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  tag_id UUID </span><span style="color:#F97583">REFERENCES</span><span style="color:#E1E4E8"> tags(id) </span><span style="color:#F97583">ON DELETE CASCADE</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#F97583">  PRIMARY KEY</span><span style="color:#E1E4E8"> (post_id, tag_id)</span></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span></code></pre>
+<h3 id="one-to-one">One-to-One</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- users -> profiles (one-to-one)</span></span>
+<span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> TABLE</span><span style="color:#B392F0"> profiles</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">  user_id UUID </span><span style="color:#F97583">PRIMARY KEY</span><span style="color:#F97583"> REFERENCES</span><span style="color:#E1E4E8"> users(id) </span><span style="color:#F97583">ON DELETE CASCADE</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  bio </span><span style="color:#F97583">TEXT</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  avatar_url </span><span style="color:#F97583">TEXT</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  updated_at </span><span style="color:#F97583">TIMESTAMP WITH TIME ZONE</span><span style="color:#F97583"> DEFAULT</span><span style="color:#F97583"> NOW</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span></code></pre>
+<hr>
+<h2 id="3-constraints">3. Constraints</h2>
+<h3 id="primary-key">Primary Key</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- Single column</span></span>
+<span class="line"><span style="color:#E1E4E8">id UUID </span><span style="color:#F97583">PRIMARY KEY</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Composite primary key</span></span>
+<span class="line"><span style="color:#F97583">PRIMARY KEY</span><span style="color:#E1E4E8"> (user_id, role_id)</span></span></code></pre>
+<h3 id="foreign-key">Foreign Key</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- Basic</span></span>
+<span class="line"><span style="color:#E1E4E8">user_id UUID </span><span style="color:#F97583">REFERENCES</span><span style="color:#E1E4E8"> users(id)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- With actions</span></span>
+<span class="line"><span style="color:#E1E4E8">user_id UUID </span><span style="color:#F97583">REFERENCES</span><span style="color:#E1E4E8"> users(id) </span><span style="color:#F97583">ON DELETE CASCADE</span></span>
+<span class="line"><span style="color:#E1E4E8">user_id UUID </span><span style="color:#F97583">REFERENCES</span><span style="color:#E1E4E8"> users(id) </span><span style="color:#F97583">ON DELETE</span><span style="color:#F97583"> SET</span><span style="color:#F97583"> NULL</span></span>
+<span class="line"><span style="color:#E1E4E8">user_id UUID </span><span style="color:#F97583">REFERENCES</span><span style="color:#E1E4E8"> users(id) </span><span style="color:#F97583">ON UPDATE CASCADE</span></span></code></pre>
+<h3 id="unique">Unique</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- Column level</span></span>
+<span class="line"><span style="color:#E1E4E8">email </span><span style="color:#F97583">TEXT</span><span style="color:#F97583"> UNIQUE</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Table level</span></span>
+<span class="line"><span style="color:#F97583">UNIQUE</span><span style="color:#E1E4E8"> (email, organization_id)</span></span></code></pre>
+<h3 id="check">Check</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- Ensure value is positive</span></span>
+<span class="line"><span style="color:#E1E4E8">price </span><span style="color:#F97583">NUMERIC</span><span style="color:#F97583"> CHECK</span><span style="color:#E1E4E8"> (price </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Multiple conditions</span></span>
+<span class="line"><span style="color:#F97583">status</span><span style="color:#F97583"> TEXT</span><span style="color:#F97583"> CHECK</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">status</span><span style="color:#F97583"> IN</span><span style="color:#E1E4E8"> (</span><span style="color:#9ECBFF">'active'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'inactive'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'pending'</span><span style="color:#E1E4E8">))</span></span></code></pre>
+<h3 id="not-null">Not Null</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#F97583">name</span><span style="color:#F97583"> TEXT</span><span style="color:#F97583"> NOT NULL</span></span>
+<span class="line"><span style="color:#E1E4E8">email </span><span style="color:#F97583">TEXT</span><span style="color:#F97583"> NOT NULL</span></span></code></pre>
+<h3 id="default">Default</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#E1E4E8">created_at </span><span style="color:#F97583">TIMESTAMP WITH TIME ZONE</span><span style="color:#F97583"> DEFAULT</span><span style="color:#F97583"> NOW</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#E1E4E8">is_active </span><span style="color:#F97583">BOOLEAN</span><span style="color:#F97583"> DEFAULT</span><span style="color:#E1E4E8"> true</span></span>
+<span class="line"><span style="color:#F97583">priority INTEGER</span><span style="color:#F97583"> DEFAULT</span><span style="color:#79B8FF"> 1</span></span></code></pre>
+<h3 id="additional-examples">Additional Examples</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- RLS (Row Level Security) - Supabase specific</span></span>
+<span class="line"><span style="color:#F97583">ALTER</span><span style="color:#F97583"> TABLE</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">ENABLE</span><span style="color:#F97583"> ROW</span><span style="color:#F97583"> LEVEL</span><span style="color:#F97583"> SECURITY</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> POLICY</span><span style="color:#9ECBFF"> "Users can view their own data"</span></span>
+<span class="line"><span style="color:#F97583">  ON</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">FOR</span><span style="color:#F97583"> SELECT</span></span>
+<span class="line"><span style="color:#F97583">  USING</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">auth</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">uid</span><span style="color:#E1E4E8">() </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> id);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Soft delete</span></span>
+<span class="line"><span style="color:#F97583">ALTER</span><span style="color:#F97583"> TABLE</span><span style="color:#E1E4E8"> posts </span><span style="color:#F97583">ADD</span><span style="color:#E1E4E8"> COLUMN deleted_at </span><span style="color:#F97583">TIMESTAMP WITH TIME ZONE</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">-- Enums</span></span>
+<span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> TYPE</span><span style="color:#B392F0"> post_status</span><span style="color:#F97583"> AS</span><span style="color:#E1E4E8"> ENUM (</span><span style="color:#9ECBFF">'draft'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'published'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'archived'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">ALTER</span><span style="color:#F97583"> TABLE</span><span style="color:#E1E4E8"> posts </span><span style="color:#F97583">ADD</span><span style="color:#E1E4E8"> COLUMN </span><span style="color:#F97583">status</span><span style="color:#E1E4E8"> post_status </span><span style="color:#F97583">DEFAULT</span><span style="color:#9ECBFF"> 'draft'</span><span style="color:#E1E4E8">;</span></span></code></pre>
+<hr>
+<h2 id="4-quick-reference">4. Quick Reference</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Relationship</th><th>Implementation</th></tr></thead><tbody><tr><td>One-to-Many</td><td><code>FK</code> on child table</td></tr><tr><td>Many-to-Many</td><td>Junction table with composite PK</td></tr><tr><td>One-to-One</td><td><code>FK</code> with unique constraint</td></tr></tbody></table>
+<hr>
+<p><em>Last updated: 2026-04-02</em></p> <a href="/" class="btn btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-big-left h-4 w-4"> <path d="M10.793 19.793a.707.707 0 0 0 1.207-.5V16a1 1 0 0 1 1-1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-6a1 1 0 0 1-1-1V4.707a.707.707 0 0 0-1.207-.5l-6.94 6.94a1.207 1.207 0 0 0 0 1.707z"></path>  </svg> Home</a> </div>  </div> </body></html>

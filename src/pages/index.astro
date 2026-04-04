@@ -1,9 +1,5 @@
 ---
 import RootLayout from "./RootLayout.astro";
-import { getCollection } from "astro:content";
-
-// fetch the collections defined inside the content.config.ts
-const notes = await getCollection("notes");
 ---
 
 <RootLayout>
@@ -24,28 +20,17 @@ const notes = await getCollection("notes");
         <path d="m21 21-4.3-4.3"></path>
       </g>
     </svg>
-    <input type="search" class="grow" placeholder="Search by topics" />
+    <input
+      hx-get="/api/notes"
+      hx-trigger="input delay:500ms, load"
+      hx-target="#filteredNotes"
+      type="search"
+      name="q"
+      class="grow"
+      placeholder="Search by topics"
+    />
     <kbd class="kbd kbd-md">Enter</kbd>
   </label>
-  <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-6 mt-8">
-    {
-      notes.map((note) => (
-        <a href={`/notes/${note.id}`}>
-          <div class="relative group">
-            <div class="absolute -z-1 bg-transparent group-hover:bg-gray-200 h-44 w-full group-hover:rotate-3 group-hover:-translate-y-2 group-hover:translate-x-2 transition-all ease-in-out" />
-            <div class="absolute -z-2 bg-transparent group-hover:bg-gray-300 h-44 w-full group-hover:-translate-y-1 group-hover:translate-x-1 transition-all ease-in-out" />
-            <div class="flex flex-col text-center justify-between h-44 w-full bg-gray-100 p-4 shadow-md group-hover:shadow-none group-hover:rotate-6 group-hover:-translate-y-3 group-hover:translate-x-3 transition-all ease-in-out">
-              <p class="text-sm font-semibold uppercase">{note.data.title}</p>
-              <div class="space-y-4">
-                <p class="text-xs text-base-content/50">by</p>
-                <p class="text-center text-xs text-base-content/80">
-                  {note.data.coAuthor}
-                </p>
-              </div>
-            </div>
-          </div>
-        </a>
-      ))
-    }
+  <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-6 mt-8" id="filteredNotes">
   </div>
 </RootLayout>

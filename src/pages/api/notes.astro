@@ -1,0 +1,35 @@
+---
+import { getCollection } from "astro:content";
+
+const query = new URL(Astro.request.url).searchParams.get("q") || "";
+
+const notes = await (async () => {
+  if (query.length > 0) {
+    return (await getCollection("notes")).filter((note) =>
+      note.data.title.toLowerCase().includes(query.toLowerCase()),
+    );
+  }
+
+  return await getCollection("notes");
+})();
+---
+
+{
+  notes.map((note) => (
+    <a href={`/notes/${note.id}`}>
+      <div class="relative group">
+        <div class="absolute -z-1 bg-transparent group-hover:bg-gray-200 h-44 w-full group-hover:rotate-3 group-hover:-translate-y-2 group-hover:translate-x-2 transition-all ease-in-out" />
+        <div class="absolute -z-2 bg-transparent group-hover:bg-gray-300 h-44 w-full group-hover:-translate-y-1 group-hover:translate-x-1 transition-all ease-in-out" />
+        <div class="flex flex-col text-center justify-between h-44 w-full bg-gray-100 p-4 shadow-md group-hover:shadow-none group-hover:rotate-6 group-hover:-translate-y-3 group-hover:translate-x-3 transition-all ease-in-out">
+          <p class="text-sm font-semibold uppercase">{note.data.title}</p>
+          <div class="space-y-4">
+            <p class="text-xs text-base-content/50">by</p>
+            <p class="text-center text-xs text-base-content/80">
+              {note.data.coAuthor}
+            </p>
+          </div>
+        </div>
+      </div>
+    </a>
+  ))
+}
