@@ -1,6 +1,6 @@
 ---
 import { ArrowBigLeft } from "@lucide/astro";
-import RootLayout from "../../layouts/RootLayout.astro";
+import NoteLayout from "../../layouts/NoteLayout.astro";
 import { render } from "astro:content";
 import { getCollection } from "astro:content";
 
@@ -19,7 +19,7 @@ const { note } = Astro.props;
 const { Content } = await render(note);
 ---
 
-<RootLayout>
+<NoteLayout sections={note.data.sections}>
   <div>
     <a href="/" class="btn btn-sm"><ArrowBigLeft class="h-4 w-4" /> Home</a>
   </div>
@@ -27,4 +27,4 @@ const { Content } = await render(note);
     <Content />
     <a href="/" class="btn btn-sm"><ArrowBigLeft class="h-4 w-4" /> Home</a>
   </div>
-</RootLayout>
+</NoteLayout>
