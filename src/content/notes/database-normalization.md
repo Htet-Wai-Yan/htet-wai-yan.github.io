@@ -65,8 +65,6 @@ CREATE TABLE order_items (
 );
 ```
 
----
-
 ## 2NF - Second Normal Form
 
 **Rule:** Must be in 1NF first. Every column depends on the entire key.
@@ -102,8 +100,6 @@ Each table now has data that truly belongs there:
 
 - `orders` → order-level info (customer, date)
 - `order_items` → line-item info (product, price paid)
-
----
 
 ## 3NF - Third Normal Form
 
@@ -146,8 +142,6 @@ FROM order_items;
 
 Store only what can't be derived from other data.
 
----
-
 ## BCNF - Boyce-Codd Normal Form
 
 **Rule:** A stricter 3NF. Handles tricky cases where columns determine each other.
@@ -189,8 +183,6 @@ CREATE TABLE orders (
 
 Now each column's dependencies are on proper keys. No anomalies when inserting, updating, or deleting agents.
 
----
-
 ## Summary
 
 | Level | Problem It Solves                            | Fix                            | Example in Our Store                                |
@@ -213,8 +205,6 @@ Now each column's dependencies are on proper keys. No anomalies when inserting, 
 - **Lower NF** = faster queries, simpler joins, sometimes better read performance
 
 Don't over-normalize prematurely. Start simple, refactor as needed.
-
----
 
 ## Rules of Thumb for Schema Design
 

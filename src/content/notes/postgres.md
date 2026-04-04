@@ -32,8 +32,6 @@ psql -U postgres  # default superuser
 \x          -- expanded display (better for wide tables)
 ```
 
----
-
 ## 2. Create & Manage Databases
 
 ```sql
@@ -46,8 +44,6 @@ DROP DATABASE mydb;
 -- Connect to database
 \c mydb
 ```
-
----
 
 ## 3. Create & Manage Tables
 
@@ -85,8 +81,6 @@ ALTER TABLE users DROP COLUMN phone;
 -- Rename table
 ALTER TABLE users RENAME TO customers;
 ```
-
----
 
 ## 4. CRUD Operations
 
@@ -171,8 +165,6 @@ DELETE FROM users;
 DELETE FROM users WHERE id = 5 RETURNING id, name;
 ```
 
----
-
 ## 5. Constraints
 
 ```sql
@@ -203,8 +195,6 @@ CREATE TABLE examples (
 ALTER TABLE users ADD CONSTRAINT unique_email UNIQUE (email);
 ALTER TABLE orders ADD CONSTRAINT positive_price CHECK (price > 0);
 ```
-
----
 
 ## 6. Joins
 
@@ -264,8 +254,6 @@ JOIN orders o ON u.id = o.user_id
 JOIN products p ON o.product_id = p.id;
 ```
 
----
-
 ## 7. Aggregations
 
 ```sql
@@ -300,8 +288,6 @@ FROM users
 GROUP BY country;
 ```
 
----
-
 ## 8. Subqueries
 
 ```sql
@@ -323,8 +309,6 @@ FROM users;
 SELECT * FROM products
 WHERE category_id IN (SELECT id FROM categories WHERE name = 'Electronics');
 ```
-
----
 
 ## 9. Common Functions
 
@@ -375,8 +359,6 @@ SELECT COALESCE(phone, 'N/A') FROM users;
 SELECT NULLIF(a, b);  -- returns null if a = b, else returns a
 ```
 
----
-
 ## 10. Views
 
 ```sql
@@ -394,8 +376,6 @@ SELECT name, email, created_at FROM users WHERE status = 'active';
 -- Drop view
 DROP VIEW active_users;
 ```
-
----
 
 ## 11. Indexes
 
@@ -426,8 +406,6 @@ DROP INDEX idx_users_email;
 -- - Frequently updated columns
 ```
 
----
-
 ## 12. Transactions
 
 ```sql
@@ -457,8 +435,6 @@ COMMIT;
 -- Only Alice will be inserted
 ```
 
----
-
 ## 13. Export & Import
 
 ### Export to CSV
@@ -475,8 +451,6 @@ FROM '/tmp/users.csv'
 DELIMITER ','
 CSV HEADER;
 ```
-
----
 
 ## 14. User Management
 
@@ -498,8 +472,6 @@ DROP USER alice;
 -- Change password
 ALTER USER alice WITH PASSWORD 'newpassword';
 ```
-
----
 
 ## 15. Useful Tips
 

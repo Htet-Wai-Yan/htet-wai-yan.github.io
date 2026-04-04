@@ -24,8 +24,6 @@ CREATE TABLE users (
 );
 ```
 
----
-
 ## 2. Relationships
 
 ### One-to-Many (has many)
@@ -68,8 +66,6 @@ CREATE TABLE profiles (
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 ```
-
----
 
 ## 3. Constraints
 
@@ -149,15 +145,13 @@ CREATE TYPE post_status AS ENUM ('draft', 'published', 'archived');
 ALTER TABLE posts ADD COLUMN status post_status DEFAULT 'draft';
 ```
 
----
-
 ## 4. Quick Reference
 
-| Relationship | Implementation |
-|--------------|----------------|
-| One-to-Many | `FK` on child table |
+| Relationship | Implementation                   |
+| ------------ | -------------------------------- |
+| One-to-Many  | `FK` on child table              |
 | Many-to-Many | Junction table with composite PK |
-| One-to-One | `FK` with unique constraint |
+| One-to-One   | `FK` with unique constraint      |
 
 ---
 
