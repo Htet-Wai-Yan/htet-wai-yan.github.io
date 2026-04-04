@@ -11,7 +11,23 @@
 
 - Notes are stored in `src/content/notes/`
 - Create new notes directly in this directory (NOT in `content/` root)
-- When creating a new .md file in this directory, automatically push to GitHub
+
+## Frontmatter
+
+When creating a new .md note file, always include this frontmatter:
+
+```
+---
+title: ""
+description: ""
+tags: []
+updated: "YYYY-MM-DD"
+coAuthor: "opencode"
+sections: ["Section 1", "Section 2", ...]
+---
+```
+
+**Important**: Extract all `##` second-level headers from the content and add them as a string array to the `sections` field in the frontmatter.
 
 ## Git Workflow
 

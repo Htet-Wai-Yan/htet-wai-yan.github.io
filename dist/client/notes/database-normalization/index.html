@@ -1,4 +1,4 @@
-<!DOCTYPE html><html data-theme="retro"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><script src="/htmx.min.js"></script><link rel="stylesheet" href="/_astro/_id_@_@astro.Dc7_reDc.css"></head> <body class="min-h-screen grid justify-center"> <div class="w-full max-w-2xl p-4">  <div> <a href="/" class="btn btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-big-left h-4 w-4"> <path d="M10.793 19.793a.707.707 0 0 0 1.207-.5V16a1 1 0 0 1 1-1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-6a1 1 0 0 1-1-1V4.707a.707.707 0 0 0-1.207-.5l-6.94 6.94a1.207 1.207 0 0 0 0 1.707z"></path>  </svg> Home</a> </div> <div class="prose py-6"> <h1 id="database-normalization">Database Normalization</h1>
+<!DOCTYPE html><html data-theme="retro"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><script src="/htmx.min.js"></script><link rel="stylesheet" href="/_astro/_id_@_@astro.D7uSnxFi.css"></head> <body class="min-h-screen grid justify-center"> <div class="w-full max-w-2xl p-4">  <div> <a href="/" class="btn btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-big-left h-4 w-4"> <path d="M10.793 19.793a.707.707 0 0 0 1.207-.5V16a1 1 0 0 1 1-1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-6a1 1 0 0 1-1-1V4.707a.707.707 0 0 0-1.207-.5l-6.94 6.94a1.207 1.207 0 0 0 0 1.707z"></path>  </svg> Home</a> </div> <div class="prose py-6"> <h1 id="database-normalization">Database Normalization</h1>
 <p>This guide follows a relatable example: an <strong>online store</strong> that sells products to customers. We’ll see how to fix data step by step.</p>
 <hr>
 <h2 id="1nf---first-normal-form">1NF - First Normal Form</h2>
@@ -91,7 +91,6 @@
 <span class="line"><span style="color:#E1E4E8">    price_at_purchase </span><span style="color:#F97583">DECIMAL</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">10</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">),</span></span>
 <span class="line"><span style="color:#F97583">    PRIMARY KEY</span><span style="color:#E1E4E8"> (order_id, product_id)</span></span>
 <span class="line"><span style="color:#E1E4E8">);</span></span></code></pre>
-<hr>
 <h2 id="2nf---second-normal-form">2NF - Second Normal Form</h2>
 <p><strong>Rule:</strong> Must be in 1NF first. Every column depends on the entire key.</p>
 <p>If your primary key has two columns (composite key), nothing should depend on just one of them.</p>
@@ -135,7 +134,6 @@
 <li><code>orders</code> → order-level info (customer, date)</li>
 <li><code>order_items</code> → line-item info (product, price paid)</li>
 </ul>
-<hr>
 <h2 id="3nf---third-normal-form">3NF - Third Normal Form</h2>
 <p><strong>Rule:</strong> Must be in 2NF first. No column should depend on another non-key column.</p>
 <p>If you can calculate one value from others, don’t store it.</p>
@@ -181,7 +179,6 @@
 <span class="line"><span style="color:#E1E4E8">    quantity </span><span style="color:#F97583">*</span><span style="color:#E1E4E8"> price_at_purchase </span><span style="color:#F97583">AS</span><span style="color:#E1E4E8"> subtotal</span></span>
 <span class="line"><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> order_items;</span></span></code></pre>
 <p>Store only what can’t be derived from other data.</p>
-<hr>
 <h2 id="bcnf---boyce-codd-normal-form">BCNF - Boyce-Codd Normal Form</h2>
 <p><strong>Rule:</strong> A stricter 3NF. Handles tricky cases where columns determine each other.</p>
 <h3 id="the-problem-2">The Problem</h3>
@@ -236,7 +233,6 @@
 <span class="line"><span style="color:#E1E4E8">    agent_id </span><span style="color:#F97583">VARCHAR</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">10</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">REFERENCES</span><span style="color:#E1E4E8"> agents(agent_id)</span></span>
 <span class="line"><span style="color:#E1E4E8">);</span></span></code></pre>
 <p>Now each column’s dependencies are on proper keys. No anomalies when inserting, updating, or deleting agents.</p>
-<hr>
 <h2 id="summary">Summary</h2>
 
 
@@ -287,7 +283,6 @@
 <li><strong>Lower NF</strong> = faster queries, simpler joins, sometimes better read performance</li>
 </ul>
 <p>Don’t over-normalize prematurely. Start simple, refactor as needed.</p>
-<hr>
 <h2 id="rules-of-thumb-for-schema-design">Rules of Thumb for Schema Design</h2>
 <ol>
 <li>

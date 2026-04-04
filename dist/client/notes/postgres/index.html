@@ -1,4 +1,4 @@
-<!DOCTYPE html><html data-theme="retro"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><script src="/htmx.min.js"></script><link rel="stylesheet" href="/_astro/_id_@_@astro.Dc7_reDc.css"></head> <body class="min-h-screen grid justify-center"> <div class="w-full max-w-2xl p-4">  <div> <a href="/" class="btn btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-big-left h-4 w-4"> <path d="M10.793 19.793a.707.707 0 0 0 1.207-.5V16a1 1 0 0 1 1-1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-6a1 1 0 0 1-1-1V4.707a.707.707 0 0 0-1.207-.5l-6.94 6.94a1.207 1.207 0 0 0 0 1.707z"></path>  </svg> Home</a> </div> <div class="prose py-6"> <h1 id="postgresql">PostgreSQL</h1>
+<!DOCTYPE html><html data-theme="retro"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><script src="/htmx.min.js"></script><link rel="stylesheet" href="/_astro/_id_@_@astro.D7uSnxFi.css"></head> <body class="min-h-screen grid justify-center"> <div class="w-full max-w-2xl p-4">  <div> <a href="/" class="btn btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-big-left h-4 w-4"> <path d="M10.793 19.793a.707.707 0 0 0 1.207-.5V16a1 1 0 0 1 1-1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-6a1 1 0 0 1-1-1V4.707a.707.707 0 0 0-1.207-.5l-6.94 6.94a1.207 1.207 0 0 0 0 1.707z"></path>  </svg> Home</a> </div> <div class="prose py-6"> <h1 id="postgresql">PostgreSQL</h1>
 <hr>
 <h2 id="1-basic-commands">1. Basic Commands</h2>
 <h3 id="connect-to-database">Connect to database</h3>
@@ -13,7 +13,6 @@
 <span class="line"><span style="color:#E1E4E8">\q          </span><span style="color:#6A737D">-- quit</span></span>
 <span class="line"><span style="color:#E1E4E8">\h          </span><span style="color:#6A737D">-- help with SQL commands</span></span>
 <span class="line"><span style="color:#E1E4E8">\x          </span><span style="color:#6A737D">-- expanded display (better for wide tables)</span></span></code></pre>
-<hr>
 <h2 id="2-create--manage-databases">2. Create &#x26; Manage Databases</h2>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- Create database</span></span>
 <span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> DATABASE</span><span style="color:#B392F0"> mydb</span><span style="color:#E1E4E8">;</span></span>
@@ -23,7 +22,6 @@
 <span class="line"></span>
 <span class="line"><span style="color:#6A737D">-- Connect to database</span></span>
 <span class="line"><span style="color:#E1E4E8">\c mydb</span></span></code></pre>
-<hr>
 <h2 id="3-create--manage-tables">3. Create &#x26; Manage Tables</h2>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> TABLE</span><span style="color:#B392F0"> users</span><span style="color:#E1E4E8"> (</span></span>
 <span class="line"><span style="color:#E1E4E8">    id </span><span style="color:#F97583">SERIAL</span><span style="color:#F97583"> PRIMARY KEY</span><span style="color:#E1E4E8">,</span></span>
@@ -57,7 +55,6 @@
 <span class="line"></span>
 <span class="line"><span style="color:#6A737D">-- Rename table</span></span>
 <span class="line"><span style="color:#F97583">ALTER</span><span style="color:#F97583"> TABLE</span><span style="color:#E1E4E8"> users RENAME </span><span style="color:#F97583">TO</span><span style="color:#E1E4E8"> customers;</span></span></code></pre>
-<hr>
 <h2 id="4-crud-operations">4. CRUD Operations</h2>
 <h3 id="create-insert">Create (Insert)</h3>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- Insert single row</span></span>
@@ -124,7 +121,6 @@
 <span class="line"></span>
 <span class="line"><span style="color:#6A737D">-- Delete and return</span></span>
 <span class="line"><span style="color:#F97583">DELETE</span><span style="color:#F97583"> FROM</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">WHERE</span><span style="color:#E1E4E8"> id </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 5</span><span style="color:#E1E4E8"> RETURNING id, </span><span style="color:#F97583">name</span><span style="color:#E1E4E8">;</span></span></code></pre>
-<hr>
 <h2 id="5-constraints">5. Constraints</h2>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> TABLE</span><span style="color:#B392F0"> examples</span><span style="color:#E1E4E8"> (</span></span>
 <span class="line"><span style="color:#6A737D">    -- Primary key</span></span>
@@ -152,7 +148,6 @@
 <span class="line"><span style="color:#6A737D">-- Add constraint after table created</span></span>
 <span class="line"><span style="color:#F97583">ALTER</span><span style="color:#F97583"> TABLE</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">ADD</span><span style="color:#F97583"> CONSTRAINT</span><span style="color:#E1E4E8"> unique_email </span><span style="color:#F97583">UNIQUE</span><span style="color:#E1E4E8"> (email);</span></span>
 <span class="line"><span style="color:#F97583">ALTER</span><span style="color:#F97583"> TABLE</span><span style="color:#E1E4E8"> orders </span><span style="color:#F97583">ADD</span><span style="color:#F97583"> CONSTRAINT</span><span style="color:#E1E4E8"> positive_price </span><span style="color:#F97583">CHECK</span><span style="color:#E1E4E8"> (price </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">);</span></span></code></pre>
-<hr>
 <h2 id="6-joins">6. Joins</h2>
 <h3 id="sample-tables-for-examples">Sample tables for examples</h3>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- users table</span></span>
@@ -187,7 +182,6 @@
 <span class="line"><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> users u</span></span>
 <span class="line"><span style="color:#F97583">JOIN</span><span style="color:#E1E4E8"> orders o </span><span style="color:#F97583">ON</span><span style="color:#79B8FF"> u</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">id</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> o</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">user_id</span></span>
 <span class="line"><span style="color:#F97583">JOIN</span><span style="color:#E1E4E8"> products p </span><span style="color:#F97583">ON</span><span style="color:#79B8FF"> o</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">product_id</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> p</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">id</span><span style="color:#E1E4E8">;</span></span></code></pre>
-<hr>
 <h2 id="7-aggregations">7. Aggregations</h2>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- Count</span></span>
 <span class="line"><span style="color:#F97583">SELECT</span><span style="color:#79B8FF"> COUNT</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">*</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> users;</span></span>
@@ -218,7 +212,6 @@
 <span class="line"><span style="color:#79B8FF">    MAX</span><span style="color:#E1E4E8">(age) </span><span style="color:#F97583">as</span><span style="color:#E1E4E8"> max_age</span></span>
 <span class="line"><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> users</span></span>
 <span class="line"><span style="color:#F97583">GROUP BY</span><span style="color:#E1E4E8"> country;</span></span></code></pre>
-<hr>
 <h2 id="8-subqueries">8. Subqueries</h2>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- Subquery in WHERE</span></span>
 <span class="line"><span style="color:#F97583">SELECT</span><span style="color:#F97583"> *</span><span style="color:#F97583"> FROM</span><span style="color:#E1E4E8"> users</span></span>
@@ -237,7 +230,6 @@
 <span class="line"><span style="color:#6A737D">-- IN with subquery</span></span>
 <span class="line"><span style="color:#F97583">SELECT</span><span style="color:#F97583"> *</span><span style="color:#F97583"> FROM</span><span style="color:#E1E4E8"> products</span></span>
 <span class="line"><span style="color:#F97583">WHERE</span><span style="color:#E1E4E8"> category_id </span><span style="color:#F97583">IN</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">SELECT</span><span style="color:#E1E4E8"> id </span><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> categories </span><span style="color:#F97583">WHERE</span><span style="color:#F97583"> name</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> 'Electronics'</span><span style="color:#E1E4E8">);</span></span></code></pre>
-<hr>
 <h2 id="9-common-functions">9. Common Functions</h2>
 <h3 id="string-functions">String functions</h3>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#F97583">SELECT</span><span style="color:#79B8FF"> UPPER</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'hello'</span><span style="color:#E1E4E8">);        </span><span style="color:#6A737D">-- HELLO</span></span>
@@ -270,7 +262,6 @@
 <h3 id="coalesce--null-handling">Coalesce &#x26; Null handling</h3>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#F97583">SELECT</span><span style="color:#79B8FF"> COALESCE</span><span style="color:#E1E4E8">(phone, </span><span style="color:#9ECBFF">'N/A'</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">FROM</span><span style="color:#E1E4E8"> users;</span></span>
 <span class="line"><span style="color:#F97583">SELECT</span><span style="color:#79B8FF"> NULLIF</span><span style="color:#E1E4E8">(a, b);  </span><span style="color:#6A737D">-- returns null if a = b, else returns a</span></span></code></pre>
-<hr>
 <h2 id="10-views">10. Views</h2>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- Create view</span></span>
 <span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> VIEW</span><span style="color:#B392F0"> active_users</span><span style="color:#F97583"> AS</span></span>
@@ -285,7 +276,6 @@
 <span class="line"></span>
 <span class="line"><span style="color:#6A737D">-- Drop view</span></span>
 <span class="line"><span style="color:#F97583">DROP</span><span style="color:#F97583"> VIEW</span><span style="color:#E1E4E8"> active_users;</span></span></code></pre>
-<hr>
 <h2 id="11-indexes">11. Indexes</h2>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- Create index</span></span>
 <span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> INDEX</span><span style="color:#B392F0"> idx_users_email</span><span style="color:#F97583"> ON</span><span style="color:#E1E4E8"> users(email);</span></span>
@@ -311,7 +301,6 @@
 <span class="line"><span style="color:#6A737D">-- - Small tables</span></span>
 <span class="line"><span style="color:#6A737D">-- - Low-cardinality columns (few unique values)</span></span>
 <span class="line"><span style="color:#6A737D">-- - Frequently updated columns</span></span></code></pre>
-<hr>
 <h2 id="12-transactions">12. Transactions</h2>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#F97583">BEGIN</span><span style="color:#E1E4E8">;  </span><span style="color:#6A737D">-- or START TRANSACTION;</span></span>
 <span class="line"></span>
@@ -333,7 +322,6 @@
 <span class="line"></span>
 <span class="line"><span style="color:#F97583">COMMIT</span><span style="color:#E1E4E8">;</span></span>
 <span class="line"><span style="color:#6A737D">-- Only Alice will be inserted</span></span></code></pre>
-<hr>
 <h2 id="13-export--import">13. Export &#x26; Import</h2>
 <h3 id="export-to-csv">Export to CSV</h3>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#F97583">COPY</span><span style="color:#E1E4E8"> users </span><span style="color:#F97583">TO</span><span style="color:#9ECBFF"> '/tmp/users.csv'</span><span style="color:#E1E4E8"> DELIMITER </span><span style="color:#9ECBFF">','</span><span style="color:#E1E4E8"> CSV HEADER;</span></span></code></pre>
@@ -342,7 +330,6 @@
 <span class="line"><span style="color:#F97583">FROM</span><span style="color:#9ECBFF"> '/tmp/users.csv'</span></span>
 <span class="line"><span style="color:#E1E4E8">DELIMITER </span><span style="color:#9ECBFF">','</span></span>
 <span class="line"><span style="color:#E1E4E8">CSV HEADER;</span></span></code></pre>
-<hr>
 <h2 id="14-user-management">14. User Management</h2>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- Create user</span></span>
 <span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> USER</span><span style="color:#B392F0"> alice</span><span style="color:#F97583"> WITH</span><span style="color:#F97583"> PASSWORD</span><span style="color:#9ECBFF"> 'password123'</span><span style="color:#E1E4E8">;</span></span>
@@ -360,7 +347,6 @@
 <span class="line"></span>
 <span class="line"><span style="color:#6A737D">-- Change password</span></span>
 <span class="line"><span style="color:#F97583">ALTER</span><span style="color:#F97583"> USER</span><span style="color:#E1E4E8"> alice </span><span style="color:#F97583">WITH</span><span style="color:#F97583"> PASSWORD</span><span style="color:#9ECBFF"> 'newpassword'</span><span style="color:#E1E4E8">;</span></span></code></pre>
-<hr>
 <h2 id="15-useful-tips">15. Useful Tips</h2>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- Get table size</span></span>
 <span class="line"><span style="color:#F97583">SELECT</span><span style="color:#E1E4E8"> pg_size_pretty(pg_total_relation_size(</span><span style="color:#9ECBFF">'users'</span><span style="color:#E1E4E8">));</span></span>

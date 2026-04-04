@@ -4,6 +4,7 @@ description: "Learn database normalization forms (1NF to BCNF) with practical ex
 tags: ["database", "normalization", "sql"]
 updated: "2026-03-24"
 coAuthor: "opencode"
+sections: ["1NF - First Normal Form", "2NF - Second Normal Form", "3NF - Third Normal Form", "BCNF - Boyce-Codd Normal Form", "Summary", "Rules of Thumb for Schema Design"]
 ---
 
 # Database Normalization

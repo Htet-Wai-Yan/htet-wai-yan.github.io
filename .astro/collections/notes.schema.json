@@ -20,6 +20,12 @@
     "coAuthor": {
       "type": "string"
     },
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "$schema": {
       "type": "string"
     }

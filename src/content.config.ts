@@ -9,6 +9,7 @@ const notes = defineCollection({
     tags: z.array(z.string()).optional(),
     updated: z.string().optional(),
     coAuthor: z.string().optional(),
+    sections: z.array(z.string()).optional(),
   }),
 });
 

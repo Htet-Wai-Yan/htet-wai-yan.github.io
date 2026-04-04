@@ -4,6 +4,7 @@ description: "A quick reference for creating tables, relationships, and constrai
 tags: ["supabase", "sql", "postgres", "database"]
 updated: "2026-04-02"
 coAuthor: "opencode"
+sections: ["Creating Tables", "Relationships", "Constraints", "Quick Reference"]
 ---
 
 # Supabase Tables

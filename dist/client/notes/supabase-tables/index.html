@@ -1,4 +1,4 @@
-<!DOCTYPE html><html data-theme="retro"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><script src="/htmx.min.js"></script><link rel="stylesheet" href="/_astro/_id_@_@astro.Dc7_reDc.css"></head> <body class="min-h-screen grid justify-center"> <div class="w-full max-w-2xl p-4">  <div> <a href="/" class="btn btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-big-left h-4 w-4"> <path d="M10.793 19.793a.707.707 0 0 0 1.207-.5V16a1 1 0 0 1 1-1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-6a1 1 0 0 1-1-1V4.707a.707.707 0 0 0-1.207-.5l-6.94 6.94a1.207 1.207 0 0 0 0 1.707z"></path>  </svg> Home</a> </div> <div class="prose py-6"> <h1 id="supabase-tables">Supabase Tables</h1>
+<!DOCTYPE html><html data-theme="retro"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><script src="/htmx.min.js"></script><link rel="stylesheet" href="/_astro/_id_@_@astro.D7uSnxFi.css"></head> <body class="min-h-screen grid justify-center"> <div class="w-full max-w-2xl p-4">  <div> <a href="/" class="btn btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="lucide lucide-arrow-big-left h-4 w-4"> <path d="M10.793 19.793a.707.707 0 0 0 1.207-.5V16a1 1 0 0 1 1-1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-6a1 1 0 0 1-1-1V4.707a.707.707 0 0 0-1.207-.5l-6.94 6.94a1.207 1.207 0 0 0 0 1.707z"></path>  </svg> Home</a> </div> <div class="prose py-6"> <h1 id="supabase-tables">Supabase Tables</h1>
 <p>This guide covers table creation, relationship types, and constraints for Supabase projects using PostgreSQL.</p>
 <hr>
 <h2 id="1-creating-tables">1. Creating Tables</h2>
@@ -9,7 +9,6 @@
 <span class="line"><span style="color:#F97583">  name</span><span style="color:#F97583"> TEXT</span><span style="color:#E1E4E8">,</span></span>
 <span class="line"><span style="color:#E1E4E8">  created_at </span><span style="color:#F97583">TIMESTAMP WITH TIME ZONE</span><span style="color:#F97583"> DEFAULT</span><span style="color:#F97583"> NOW</span><span style="color:#E1E4E8">()</span></span>
 <span class="line"><span style="color:#E1E4E8">);</span></span></code></pre>
-<hr>
 <h2 id="2-relationships">2. Relationships</h2>
 <h3 id="one-to-many-has-many">One-to-Many (has many)</h3>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- users -> posts (one user has many posts)</span></span>
@@ -40,7 +39,6 @@
 <span class="line"><span style="color:#E1E4E8">  avatar_url </span><span style="color:#F97583">TEXT</span><span style="color:#E1E4E8">,</span></span>
 <span class="line"><span style="color:#E1E4E8">  updated_at </span><span style="color:#F97583">TIMESTAMP WITH TIME ZONE</span><span style="color:#F97583"> DEFAULT</span><span style="color:#F97583"> NOW</span><span style="color:#E1E4E8">()</span></span>
 <span class="line"><span style="color:#E1E4E8">);</span></span></code></pre>
-<hr>
 <h2 id="3-constraints">3. Constraints</h2>
 <h3 id="primary-key">Primary Key</h3>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- Single column</span></span>
@@ -90,7 +88,6 @@
 <span class="line"><span style="color:#F97583">CREATE</span><span style="color:#F97583"> TYPE</span><span style="color:#B392F0"> post_status</span><span style="color:#F97583"> AS</span><span style="color:#E1E4E8"> ENUM (</span><span style="color:#9ECBFF">'draft'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'published'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'archived'</span><span style="color:#E1E4E8">);</span></span>
 <span class="line"></span>
 <span class="line"><span style="color:#F97583">ALTER</span><span style="color:#F97583"> TABLE</span><span style="color:#E1E4E8"> posts </span><span style="color:#F97583">ADD</span><span style="color:#E1E4E8"> COLUMN </span><span style="color:#F97583">status</span><span style="color:#E1E4E8"> post_status </span><span style="color:#F97583">DEFAULT</span><span style="color:#9ECBFF"> 'draft'</span><span style="color:#E1E4E8">;</span></span></code></pre>
-<hr>
 <h2 id="4-quick-reference">4. Quick Reference</h2>
 
 
