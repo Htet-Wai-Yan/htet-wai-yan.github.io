@@ -20,11 +20,7 @@ const { Content } = await render(note);
 ---
 
 <NoteLayout sections={note.data.sections}>
-  <div>
-    <a href="/" class="btn btn-sm"><ArrowBigLeft class="h-4 w-4" /> Home</a>
-  </div>
-  <div class="prose py-6">
+  <div class="prose">
     <Content />
-    <a href="/" class="btn btn-sm"><ArrowBigLeft class="h-4 w-4" /> Home</a>
   </div>
 </NoteLayout>

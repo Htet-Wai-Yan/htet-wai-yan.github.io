@@ -1,16 +1,29 @@
 ---
+import { ArrowBigLeft } from "@lucide/astro";
 import RootLayout from "./RootLayout.astro";
-const { note, sections } = Astro.props;
+const { sections } = Astro.props;
 ---
 
 <RootLayout>
-  <div class="flex flex-col md:flex-row gap-6">
-    <article class="prose flex-1">
+  <div class="flex justify-end">
+    <article class="p-8 space-y-6">
+      <a href="/" class="btn btn-sm"><ArrowBigLeft class="h-4 w-4" /> Home</a>
       <slot />
+      <a href="/" class="btn btn-sm"><ArrowBigLeft class="h-4 w-4" /> Home</a>
     </article>
-    <aside class="w-full md:w-64 shrink-0">
+    <aside
+      class="w-sm shrink-0 p-8 sticky top-0 h-screen overflow-y-auto border-s border-base-300 prose prose-a:no-underline prose-a:text-sm"
+    >
       <h5>On this page</h5>
-      {sections?.map((sec) => <a href={`#${sec}`}>{sec}</a>)}
+      <div class="mt-6 space-y-1">
+        {
+          sections?.map((sec) => (
+            <a href={`#${sec}`} class="block">
+              {sec}
+            </a>
+          ))
+        }
+      </div>
     </aside>
   </div>
 </RootLayout>
